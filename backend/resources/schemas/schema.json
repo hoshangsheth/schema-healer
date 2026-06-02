@@ -1,0 +1,8 @@
+{
+    "expected_schema" : [
+        "transaction_id",
+        "customer_email",
+        "purchase_amount",
+        "purchase_date"
+    ]
+}
