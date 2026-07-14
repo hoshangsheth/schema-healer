@@ -1,12 +1,13 @@
 # Import libraries:
 from typing import Dict, List
 from collections import Counter
+from backend.models.validation_models import SchemaValidationResult
 
 # Define a function to validate schema:
 def validate_schema(
         actual_columns : List[str],
         expected_columns : List[str]
-) -> Dict:
+) -> SchemaValidationResult:
 
 
     # Detect Invalid columns:
@@ -62,13 +63,13 @@ def validate_schema(
     )
 
     # Return result:
-    return {
-        "is_valid" : is_valid,
-        "invalid_columns" : invalid_columns,
-        "numeric_headers" : numeric_headers,
-        "duplicate_columns" : duplicate_columns,
-        "actual_columns" : actual_columns,
-        "expected_columns" : expected_columns,
-        "missing_columns" : missing_columns,
-        "extra_columns" : extra_columns
-    }
+    return SchemaValidationResult(
+        is_valid=is_valid,
+        invalid_columns=invalid_columns,
+        numeric_headers=numeric_headers,
+        duplicate_columns=duplicate_columns,
+        actual_columns=actual_columns,
+        expected_columns=expected_columns,
+        missing_columns=missing_columns,
+        extra_columns=extra_columns
+        )

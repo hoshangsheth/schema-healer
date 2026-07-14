@@ -7,6 +7,7 @@ from pydantic import BaseModel
 # Class Instance : ResponseStatus Enum
 class ResponseStatus(str, Enum):
     PASSED = "passed"
+    RECOVERED = "recovered"
     FAILED = "failed"
 
 
@@ -31,6 +32,12 @@ class BaseResponse(BaseModel):
 # Class Instance : Passed Response
 class PassedResponse(BaseResponse):
     actual_columns : List[str]
+
+# Class Instance : Recovered Response
+class RecoveredResponse(BaseResponse):
+    applied_mappings : dict[str, str]
+    actual_columns : list[str]
+    unresolved_columns : list[str]
 
 # Class Instance : Failed Response
 class FailedResponse(BaseResponse):

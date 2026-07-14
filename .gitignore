@@ -3,6 +3,7 @@ __pycache__/
 *.pyc
 .venv/
 .vscode
+*.ipynb
 
 # Node
 node_modules/

@@ -14,6 +14,7 @@ from fastapi import (
 # Import Response Models:   Contracts designed to consistency and avoid raw strings
 from backend.models.response_models import (
     PassedResponse,
+    RecoveredResponse,
     FailedResponse,
     ResponseStatus,
     ErrorType
@@ -21,6 +22,12 @@ from backend.models.response_models import (
 
 # Import Validation Services:   Only Business Function the API knows about - Validating the CSV File
 from backend.services.schema_validation_service import validate_uploaded_schema
+
+# Import Custom Domain Exceptions
+from backend.exceptions.processing_exceptions import (
+    InvalidFileTypeError,
+    EmptyFileError
+)
 
 """ Initialize Router """
 router = APIRouter(
@@ -34,23 +41,40 @@ async def validate_schema_endpoint(
     file : UploadFile = File(...)
 ):
     # Validate uploaded schema
-    result = validate_uploaded_schema(file)
+    try:
+        processing_result = validate_uploaded_schema(file)
 
-    # Raise HTTP Exception to handle system level failures (Guard Clause)
-    if not result["success"]:
+    except InvalidFileTypeError as exc:
         raise HTTPException(
-            status_code = status.HTTP_400_BAD_REQUEST,
-            detail = result['error']['message']
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(exc)
+        )
+    
+    except EmptyFileError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(exc)
         )
     
     # Extract schema validation result
-    validation_result = result["data"]
+    validation_result = processing_result.validation_result
     # Return successful schema validation response:
-    if validation_result["is_valid"]:
+    if validation_result.is_valid:
         return PassedResponse(
             status = ResponseStatus.PASSED,
             message = "Schema validation passed.",
-            actual_columns = validation_result["actual_columns"]
+            actual_columns = validation_result.actual_columns
+        )
+    
+    if (processing_result.recovery_result is not None
+        and processing_result.recovery_result.applied_mappings
+        ):
+        return RecoveredResponse(
+            status=ResponseStatus.RECOVERED,
+            message="Schema successfully recovered using rule-based matching.",
+            applied_mappings=processing_result.recovery_result.applied_mappings,
+            actual_columns=validation_result.actual_columns,
+            unresolved_columns=processing_result.recovery_result.unresolved_columns
         )
     
     # Return failed schema validation response:
@@ -63,28 +87,28 @@ async def validate_schema_endpoint(
             if (
                 (
                     error == ErrorType.MISSING_COLUMNS
-                    and validation_result["missing_columns"]
+                    and validation_result.missing_columns
                 )
                 or (
                     error == ErrorType.DUPLICATE_COLUMNS
-                    and validation_result["duplicate_columns"]
+                    and validation_result.duplicate_columns
                 )
                 or (
                     error == ErrorType.INVALID_HEADERS
-                    and validation_result["invalid_columns"]
+                    and validation_result.invalid_columns
                 )
                 or (
                     error == ErrorType.NUMERIC_HEADERS
-                    and validation_result["numeric_headers"]
+                    and validation_result.numeric_headers
                 )
             )
         ],
-        actual_columns = validation_result["actual_columns"],
-        missing_columns = validation_result["missing_columns"],
-        extra_columns = validation_result["extra_columns"],
-        duplicate_columns = validation_result["duplicate_columns"],
-        invalid_columns = validation_result["invalid_columns"],
-        numeric_headers = validation_result["numeric_headers"]
+        actual_columns = validation_result.actual_columns,
+        missing_columns = validation_result.missing_columns,
+        extra_columns = validation_result.extra_columns,
+        duplicate_columns = validation_result.duplicate_columns,
+        invalid_columns = validation_result.invalid_columns,
+        numeric_headers = validation_result.numeric_headers
     )
     
 

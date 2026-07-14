@@ -6,7 +6,12 @@ import csv
 from backend.models.response_models import ErrorType
 from backend.core.config import load_expected_schema
 from backend.validators.schema_validator import validate_schema
-
+from backend.services.recovery_engine.recovery_engine import recover_schema
+from backend.models.processing_models import SchemaProcessingResult
+from backend.exceptions.processing_exceptions import (
+    InvalidFileTypeError,
+    EmptyFileError
+)
 
 # Create a function to process csv file:
 def validate_uploaded_schema(file):
@@ -14,13 +19,9 @@ def validate_uploaded_schema(file):
 
     # Check if its a valid CSV  (Guard Clause)
     if not filename.endswith(".csv"):
-        return {
-            "success" : False,
-            "error" : {
-                "error_type" : ErrorType.INVALID_FILE_TYPE,
-                "message" : "Only CSV files are supported"
-            }
-        }
+        raise InvalidFileTypeError(
+            "Only CSV files are supported."
+        )
     
     # Decode
     contents = file.file.read().decode("utf-8")
@@ -35,13 +36,9 @@ def validate_uploaded_schema(file):
 
     # Check if iteration comes across empty row
     if header_row is None:
-        return {
-            "success" : False,
-            "error" : {
-                "error_type" : ErrorType.EMPTY_FILE,
-                "message" : "Uploaded CSV file is empty."
-            }
-        }
+        raise EmptyFileError(
+            "Uploaded CSV file is empty."
+        )
     
     # Store actual headers below
     actual_columns = header_row
@@ -49,19 +46,26 @@ def validate_uploaded_schema(file):
     # Expected columns:
     expected_columns = load_expected_schema()
 
-    print(f"Actual columns: {actual_columns}")
-    print(f"Expected columns: {expected_columns}")
-
     # Validate schema:
     validation_result = validate_schema(
         actual_columns,
         expected_columns
     )
 
-    print(validation_result)
+    # Attempt recovery if validation fails
+    if not validation_result.is_valid:
+        # Execute recovering schema
+        recovery_result = recover_schema(
+            columns_to_recover=validation_result.extra_columns
+        )
+
+        # Return result
+        return SchemaProcessingResult(
+            validation_result=validation_result,
+            recovery_result=recovery_result
+        )
 
     # Return result:
-    return {
-        "success" : True,
-        "data" : validation_result
-    }
+    return SchemaProcessingResult(
+        validation_result=validation_result
+    )
