@@ -2,17 +2,17 @@
 
 > AI-powered schema recovery layer that detects CSV schema drift and automatically repairs recoverable schema mismatches using a hybrid recovery engine.
 
-## 🚧 Project Status
+## Project Status
 
 Currently under active development.
 
 ### Completed
-- ✅ Project Foundation
-- ✅ Stage 0 – Development Environment Setup
-- ✅ Phase 1 – Vertical Slice 1: End-to-End Schema Validation Pipeline
+- Project Foundation
+- Stage 0 – Development Environment Setup
+- Phase 1 – Vertical Slice 1: End-to-End Schema Validation Pipeline
 
 ### In Progress
-- ⏳ Phase 1 – Vertical Slice 2: Rule-Based Recovery Engine
+- Phase 1 – Vertical Slice 2: Rule-Based Recovery Engine
 
 ## Tech Stack
 
