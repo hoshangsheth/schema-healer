@@ -1,11 +1,11 @@
 # Import required libraries:
-from backend.models.recovery_models import RuleMatchResult
+from backend.models.recovery_models import RecoveryMatchResult
 
 # Define the function:
 def match_by_rules(
     columns_to_recover: list[str],
     rule_mappings: dict[str, str]
-) -> RuleMatchResult:
+) -> RecoveryMatchResult:
     
     # Create placeholders to store the results
     applied_mappings = {}
@@ -21,7 +21,7 @@ def match_by_rules(
             # Store columns that couldn't be mapped
             unresolved_columns.append(col)
 
-    return RuleMatchResult(
+    return RecoveryMatchResult(
         applied_mappings=applied_mappings,
         unresolved_columns=unresolved_columns
     )

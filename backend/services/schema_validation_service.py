@@ -13,6 +13,10 @@ from backend.exceptions.processing_exceptions import (
     EmptyFileError
 )
 
+# Temporary configuration
+# This will be moved to the configuration layer in the future update
+DEFAULT_FUZZY_CONFIDENCE_THRESHOLD = 85.0
+
 # Create a function to process csv file:
 def validate_uploaded_schema(file):
     filename = file.filename.strip().lower()
@@ -56,7 +60,9 @@ def validate_uploaded_schema(file):
     if not validation_result.is_valid:
         # Execute recovering schema
         recovery_result = recover_schema(
-            columns_to_recover=validation_result.extra_columns
+            columns_to_recover=validation_result.extra_columns,
+            expected_schema=expected_columns,
+            confidence_threshold=DEFAULT_FUZZY_CONFIDENCE_THRESHOLD
         )
 
         # Return result

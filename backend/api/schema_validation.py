@@ -66,15 +66,15 @@ async def validate_schema_endpoint(
             actual_columns = validation_result.actual_columns
         )
     
-    if (processing_result.recovery_result is not None
-        and processing_result.recovery_result.applied_mappings
-        ):
+    # Recovery response
+    recovery_result = processing_result.recovery_result
+    if recovery_result is not None and recovery_result.applied_mappings:
         return RecoveredResponse(
             status=ResponseStatus.RECOVERED,
-            message="Schema successfully recovered using rule-based matching.",
-            applied_mappings=processing_result.recovery_result.applied_mappings,
+            message="Schema successfully recovered.",
+            applied_mappings=recovery_result.applied_mappings,
             actual_columns=validation_result.actual_columns,
-            unresolved_columns=processing_result.recovery_result.unresolved_columns
+            unresolved_columns=recovery_result.unresolved_columns
         )
     
     # Return failed schema validation response:

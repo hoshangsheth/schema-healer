@@ -2,6 +2,6 @@
 from pydantic import BaseModel
 
 # Class Instance: Rule Matcher Model
-class RuleMatchResult(BaseModel):
+class RecoveryMatchResult(BaseModel):
     applied_mappings: dict[str, str]
     unresolved_columns: list[str]
