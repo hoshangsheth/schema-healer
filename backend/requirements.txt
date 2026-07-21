@@ -9,10 +9,12 @@ asttokens==3.0.1
 attrs==26.1.0
 beautifulsoup4==4.14.3
 certifi==2026.5.20
+cffi==2.1.0
 charset-normalizer==3.4.7
 click==8.4.1
 colorama==0.4.6
 comm==0.2.3
+cryptography==49.0.0
 debugpy==1.8.21
 decorator==5.3.1
 distro==1.9.0
@@ -20,6 +22,8 @@ executing==2.2.1
 fastapi==0.136.3
 feedparser==6.0.12
 frozenlist==1.8.0
+google-auth==2.55.2
+google-genai==2.12.0
 greenlet==3.5.1
 h11==0.16.0
 httpcore==1.0.9
@@ -51,7 +55,6 @@ matplotlib-inline==0.2.2
 multidict==6.7.1
 nest-asyncio==1.6.0
 numpy==2.4.6
-openai==2.40.0
 orjson==3.11.9
 ormsgpack==1.12.2
 packaging==26.0
@@ -62,6 +65,9 @@ prompt_toolkit==3.0.52
 propcache==0.5.2
 psutil==7.2.2
 pure_eval==0.2.3
+pyasn1==0.6.4
+pyasn1_modules==0.4.2
+pycparser==3.0
 pydantic==2.13.4
 pydantic-settings==2.14.1
 pydantic_core==2.46.4

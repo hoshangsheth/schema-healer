@@ -2,7 +2,7 @@
 __pycache__/
 *.pyc
 .venv/
-.vscode
+.vscode/
 *.ipynb
 
 # Node
@@ -11,13 +11,11 @@ node_modules/
 
 # Environment
 .env
-.env.local
-.env.example
 
 # OS
 .DS_Store
 Thumbs.db
 
-# Test Files
-*.csv
-*.pdf
+# Folders
+test-data/
+scratch/
