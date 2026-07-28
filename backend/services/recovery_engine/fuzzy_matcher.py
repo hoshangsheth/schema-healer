@@ -1,70 +1,98 @@
-# Import required library: Returns business model
-from backend.models.recovery_models import RecoveryMatchResult
+"""
+Fuzzy recovery matcher.
+
+This matcher performs approximate schema recovery by comparing pending
+normalized uploaded headers against the canonical schema using
+RapidFuzz similarity scoring.
+
+Successful matches update the existing SchemaMapping objects in place.
+"""
+
 from rapidfuzz import fuzz, process
 
+from backend.models.schema_mapping_models import (
+    MappingStatus,
+    RecoveryMethod,
+    SchemaMapping,
+)
+from backend.services.recovery_engine.recovery_matcher import RecoveryMatcher
 
-"""
-Performs deterministic fuzzy matching between unresolved
-uploaded columns and expected schema.
-"""
 
-def match_by_fuzzy(
-    columns_to_recover: list[str],      # Contains unresolved columns after rule matching
-    expected_schema: list[str],         # schema to compare against
-    confidence_threshold: float,          # rule to enforce
-) -> RecoveryMatchResult:
-    # Guard Clause 1
-    if not columns_to_recover:
-        return RecoveryMatchResult(
-            applied_mappings={},
-            unresolved_columns=[]
-        )
+class FuzzyMatcher(RecoveryMatcher):
+    """
+    Performs fuzzy schema recovery using RapidFuzz.
 
-    # Guard Clause 2
-    if not expected_schema:
-        return RecoveryMatchResult(
-            applied_mappings={},
-            unresolved_columns=columns_to_recover.copy()
-        )
-    
-    # Stores successful fuzzy mappings
-    applied_mappings: dict[str, str] = {}
+    Pending uploaded headers are compared against the canonical schema.
+    Matches that satisfy the configured confidence threshold update the
+    corresponding SchemaMapping in place.
+    """
 
-    # Stores columns that could not be matched
-    unresolved_columns: list[str] = []
+    def __init__(
+        self,
+        canonical_fields: list[str],
+        confidence_threshold: float,
+    ) -> None:
+        """
+        Initialize the fuzzy matcher.
 
-    # Working copy of the expected schema
-    # Matched columns will be removed to enforce one-by-one mappings.
-    available_expected_columns = expected_schema.copy()
+        Parameters
+        ----------
+        canonical_fields:
+            Canonical schema fields available for fuzzy matching.
 
-    # Iterate through unresolved column individually
-    for uploaded_column in columns_to_recover:
-        # Core of the algorithm
-        match_result = process.extractOne(
-            query=uploaded_column,                  # string trying to identify
-            choices=available_expected_columns,     # possible answers
-            scorer=fuzz.WRatio                     # combines multiple similarity techniques internally
-        )
+        confidence_threshold:
+            Minimum similarity score required to accept a fuzzy match.
+        """
+        self._canonical_fields = canonical_fields
+        self._confidence_threshold = confidence_threshold
 
-        # Guard Clause
-        if match_result is None:
-            unresolved_columns.append(uploaded_column)
-            continue
-        
-        # Unpacking
-        matched_column, confidence_score, _ = match_result
-        
-        # Threshold Check
-        if confidence_score >= confidence_threshold:
-            # Save mapping
-            applied_mappings[uploaded_column] = matched_column
-            # Remove candidate from the pool
-            available_expected_columns.remove(matched_column)
-        else:
-            unresolved_columns.append(uploaded_column)
+    def process(
+        self,
+        mappings: list[SchemaMapping],
+    ) -> None:
+        """
+        Resolve pending schema mappings using fuzzy matching.
 
-    # Return result
-    return RecoveryMatchResult(
-        applied_mappings=applied_mappings,
-        unresolved_columns=unresolved_columns
-    )
+        Parameters
+        ----------
+        mappings:
+            Collection of SchemaMapping objects to process.
+        """
+
+        # Create a working copy so each canonical field can only be
+        # matched once during this recovery operation.
+        available_canonical_fields = self._canonical_fields.copy()
+
+        # Process each mapping independently.
+        for mapping in mappings:
+
+            # Skip mappings that have already been resolved.
+            if mapping.status != MappingStatus.PENDING:
+                continue
+
+            # Find the closest canonical field using RapidFuzz.
+            match_result = process.extractOne(
+                query=mapping.normalized_source_header,
+                choices=available_canonical_fields,
+                scorer=fuzz.WRatio,
+            )
+
+            # No suitable candidates remain.
+            if match_result is None:
+                continue
+
+            # Unpack the best fuzzy match.
+            canonical_field, confidence_score, _ = match_result
+
+            # Reject matches below the configured threshold.
+            if confidence_score < self._confidence_threshold:
+                continue
+
+            # Update the mapping with the successful fuzzy match.
+            mapping.canonical_field = canonical_field
+            mapping.status = MappingStatus.RESOLVED
+            mapping.recovery_method = RecoveryMethod.FUZZY
+
+            # Remove the matched canonical field to enforce a
+            # one-to-one mapping.
+            available_canonical_fields.remove(canonical_field)

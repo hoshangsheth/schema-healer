@@ -2,7 +2,7 @@
 from io import BytesIO
 
 # Imported module
-from backend.services.schema_validation_service import validate_uploaded_schema
+from backend.services.schema_processing_service import validate_uploaded_schema
 import pandas as pd
 
 # Creating an instance of class for mockup file upload build
