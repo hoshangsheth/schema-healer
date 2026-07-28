@@ -64,15 +64,12 @@ class RecoveryEngine:
         ]
 
         for matcher in self._matchers:
-            unresolved = [
-                mapping for mapping
-                in mappings
-                if mapping.status == MappingStatus.PENDING
-            ]
-
-            if not unresolved:
+            if all(
+                mapping.status is not MappingStatus.PENDING
+                for mapping in mappings
+            ):
                 break
 
-            matcher.process(unresolved)
+            matcher.process(mappings)
 
         return mappings

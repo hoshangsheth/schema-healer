@@ -22,4 +22,4 @@ class SchemaProcessingResult(BaseModel):
     """
 
     mappings: list[SchemaMapping]
-    validation_result = SchemaValidationResult
+    validation_result: SchemaValidationResult

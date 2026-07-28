@@ -44,10 +44,10 @@ router = APIRouter(
 # API Endpoint : Schema Validation
 @router.post(
     "/validate",
-    response_model=SchemaProcessingResult,
+    response_model=SchemaProcessingResult
 )
 async def validate_schema_endpoint(
-    file: UploadFile = File(...),
+    file: UploadFile = File(...)
 ) -> SchemaProcessingResult:
     """
     Process an uploaded CSV schema.

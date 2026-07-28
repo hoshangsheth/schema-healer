@@ -17,6 +17,8 @@ from backend.models.schema_mapping_models import (
 )
 from backend.services.recovery_engine.recovery_matcher import RecoveryMatcher
 
+from backend.domain.schema.canonical_schema import CanonicalSchema
+
 
 class FuzzyMatcher(RecoveryMatcher):
     """
@@ -29,7 +31,7 @@ class FuzzyMatcher(RecoveryMatcher):
 
     def __init__(
         self,
-        canonical_fields: list[str],
+        canonical_schema: CanonicalSchema,
         confidence_threshold: float,
     ) -> None:
         """
@@ -37,13 +39,13 @@ class FuzzyMatcher(RecoveryMatcher):
 
         Parameters
         ----------
-        canonical_fields:
-            Canonical schema fields available for fuzzy matching.
+        canonical_schema:
+            Canonical schema available for fuzzy matching.
 
         confidence_threshold:
             Minimum similarity score required to accept a fuzzy match.
         """
-        self._canonical_fields = canonical_fields
+        self._canonical_schema = canonical_schema
         self._confidence_threshold = confidence_threshold
 
     def process(
@@ -61,7 +63,10 @@ class FuzzyMatcher(RecoveryMatcher):
 
         # Create a working copy so each canonical field can only be
         # matched once during this recovery operation.
-        available_canonical_fields = self._canonical_fields.copy()
+        available_canonical_fields = [
+            field.name
+            for field in self._canonical_schema.fields
+        ]
 
         # Process each mapping independently.
         for mapping in mappings:

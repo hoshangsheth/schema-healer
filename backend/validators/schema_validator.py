@@ -69,5 +69,5 @@ def validate_schema(
         is_valid=is_valid,
         unresolved_headers=unresolved_headers,
         duplicate_canonical_fields=duplicate_canonical_fields,
-        invalid_mappings=invalid_mappings,
+        invalid_mappings=invalid_mappings
     )
