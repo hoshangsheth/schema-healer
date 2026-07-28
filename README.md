@@ -2,21 +2,25 @@
 
 > AI-powered schema recovery layer that detects CSV schema drift and automatically repairs recoverable schema mismatches using a hybrid recovery engine.
 
-## Project Status
+---
 
-Currently under active development.
+# Project Status
 
-### Completed
+**Current Stage:** Phase 1 – Vertical Slice 4 Complete
 
-#### Project Foundation
+SchemaHealer now supports end-to-end CSV schema validation with a layered recovery pipeline that combines rule-based matching, fuzzy matching, and AI-powered semantic matching.
+
+## Completed
+
+### Project Foundation
 
 - Business Foundation
 - Technical Foundation
 - Stage 0 Development Environment Setup
 
-#### Phase 1 Backend Core
+### Phase 1 – Backend Core
 
-**Vertical Slice 1**
+#### Vertical Slice 1
 
 - End-to-End Schema Validation Pipeline
 - CSV Upload Processing
@@ -24,14 +28,14 @@ Currently under active development.
 - Structured API Responses
 - FastAPI Integration
 
-**Vertical Slice 2**
+#### Vertical Slice 2
 
 - Recovery Engine Architecture
 - Rule-Based Recovery Strategy
 - Recovery Result Models
 - Recovery Engine Orchestration
 
-**Vertical Slice 3**
+#### Vertical Slice 3
 
 - Fuzzy Matching Recovery Strategy
 - Hybrid Recovery Pipeline (Rule → Fuzzy)
@@ -42,77 +46,140 @@ Currently under active development.
 - End-to-End Validation
 - Swagger Verification
 
-**Vertical Slice 4 (Infrastructure Completed)**
-
-- Provider Agnostic LLM Architecture
-- Google Gemini Integration
-- LLM Request and Response Models
-- Environment Based Configuration
-- Exception Translation
-- Structured JSON Response Parsing
-- Token Usage and Latency Tracking
-- Live Integration Testing
-
-### In Progress
-
-#### Phase 1 Backend Core
-
-**Vertical Slice 4**
+#### Vertical Slice 4
 
 - Semantic Recovery Engine
+- Provider-Agnostic LLM Architecture
+- Google Gemini Integration
+- Prompt Builder
 - Semantic Column Matching
-- Prompt Construction
-- AI Powered Schema Recovery
-- Recovery Validation
+- Structured JSON Response Validation
+- Environment-Based Configuration
+- Exception Translation
+- Semantic Recovery Validation
 - Hybrid Recovery Pipeline (Rule → Fuzzy → Semantic)
+- End-to-End Integration Testing
+- Swagger Verification
 
-## Tech Stack
+---
 
-### Backend
+# Features
+
+- CSV schema validation
+- Automatic header normalization
+- Rule-based schema recovery
+- Fuzzy string matching using RapidFuzz
+- AI-powered semantic schema recovery
+- Hybrid recovery orchestration
+- Duplicate canonical field detection
+- Invalid mapping detection
+- Unresolved header detection
+- Structured validation responses
+- Provider-agnostic LLM integration
+
+---
+
+# Tech Stack
+
+## Backend
 
 - Python
 - FastAPI
+- Pydantic
 
-### AI
+## AI
 
 - Google Gemini 3.6 Flash
 - RapidFuzz
 
-### Frontend (Planned)
+## Architecture
+
+- Service Layer Architecture
+- Factory Pattern
+- Provider-Agnostic LLM Client
+- Layered Recovery Engine
+
+## Frontend (Planned)
 
 - React 19
 - TypeScript
 - Vite
 - Tailwind CSS
 
-## Current Recovery Pipeline
+---
+
+# Current Recovery Pipeline
 
 ```text
 CSV Upload
     │
     ▼
-Schema Validation
+Header Extraction
+    │
+    ▼
+Header Normalization
     │
     ▼
 Recovery Engine
     │
-    ▼
-Rule Based Recovery
+    ├── Rule Matcher
+    │
+    ├── Fuzzy Matcher
+    │
+    └── Semantic Matcher (Gemini)
     │
     ▼
-Fuzzy Matching Recovery
+Schema Validation
     │
     ▼
-Semantic Recovery
+Validation Result
 ```
 
-## Planned
+---
 
+# Example Recovery Result
+
+```json
+{
+  "mappings": [
+    {
+      "source_header": "customer_id",
+      "recovery_method": "rule"
+    },
+    {
+      "source_header": "custmer_name",
+      "recovery_method": "semantic"
+    },
+    {
+      "source_header": "favorite_pizza",
+      "status": "pending"
+    }
+  ]
+}
+```
+
+---
+
+# Roadmap
+
+## Completed
+
+- Project Foundation
+- Vertical Slice 1
+- Vertical Slice 2
+- Vertical Slice 3
+- Vertical Slice 4
+
+## Upcoming
+
+- Vertical Slice 5
 - Frontend Dashboard
 - Recovery Audit Logs
 - Authentication
 - Docker Support
 - Deployment
 - Performance Benchmarks
+
+---
 
 More documentation, architecture diagrams, deployment instructions, evaluation benchmarks, and demo material will be added as the project progresses.
