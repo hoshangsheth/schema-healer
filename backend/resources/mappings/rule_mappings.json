@@ -1,4 +1,203 @@
 {
-    "txn_id":"transaction_id",
-    "email_address":"customer_email"
+    "customer_id": [
+        "customer_id",
+        "client_id",
+        "contact_id",
+        "cust_id"
+    ],
+    "first_name": [
+        "first_name",
+        "first",
+        "firstname",
+        "fname",
+        "given_name"
+    ],
+    "middle_name": [
+        "middle_name",
+        "middle",
+        "middlename",
+        "mname"
+    ],
+    "last_name": [
+        "last_name",
+        "last",
+        "lastname",
+        "lname",
+        "surname"
+    ],
+    "full_name": [
+        "full_name",
+        "contact_name",
+        "customer_name",
+        "display_name",
+        "fullname",
+        "full name"
+    ],
+    "email": [
+        "email",
+        "e_mail",
+        "email_address",
+        "primary_email"
+    ],
+    "phone_number": [
+        "phone_number",
+        "business_phone",
+        "landline",
+        "office_phone",
+        "phone",
+        "telephone"
+    ],
+    "mobile_number": [
+        "mobile_number",
+        "cell",
+        "cell_phone",
+        "mobile",
+        "mobile_phone"
+    ],
+    "website": [
+        "website",
+        "homepage",
+        "url",
+        "web_address"
+    ],
+    "preferred_contact_method": [
+        "preferred_contact_method",
+        "contact_method",
+        "contact_preference",
+        "preferred_contact"
+    ],
+    "street_address": [
+        "street_address",
+        "address",
+        "address1",
+        "address_line_1",
+        "street"
+    ],
+    "city": [
+        "city",
+        "town"
+    ],
+    "state": [
+        "state",
+        "province",
+        "state_province"
+    ],
+    "postal_code": [
+        "postal_code",
+        "postcode",
+        "zip",
+        "zip_code",
+        "zipcode"
+    ],
+    "country": [
+        "country",
+        "country_name"
+    ],
+    "company": [
+        "company",
+        "account_name",
+        "business",
+        "firm",
+        "organisation",
+        "organization"
+    ],
+    "job_title": [
+        "job_title",
+        "jobtitle",
+        "position"
+    ],
+    "department": [
+        "department",
+        "dept"
+    ],
+    "industry": [
+        "industry",
+        "industry_type",
+        "sector"
+    ],
+    "customer_status": [
+        "customer_status",
+        "account_status",
+        "customer_state",
+        "record_status",
+        "status"
+    ],
+    "customer_tier": [
+        "customer_tier",
+        "account_tier",
+        "customer_level",
+        "tier"
+    ],
+    "lead_source": [
+        "lead_source",
+        "acquisition_source",
+        "lead_channel",
+        "source"
+    ],
+    "lifecycle_stage": [
+        "lifecycle_stage",
+        "crm_stage",
+        "journey_stage",
+        "sales_stage",
+        "stage"
+    ],
+    "account_manager": [
+        "account_manager",
+        "account_executive",
+        "customer_success_manager",
+        "owner",
+        "relationship_manager",
+        "sales_rep",
+        "sales_representative"
+    ],
+    "region": [
+        "region",
+        "business_region",
+        "sales_region",
+        "territory"
+    ],
+    "date_of_birth": [
+        "date_of_birth",
+        "birth_date",
+        "birthdate",
+        "dob"
+    ],
+    "created_at": [
+        "created_at",
+        "created_date",
+        "created_on",
+        "creation_date",
+        "date_created"
+    ],
+    "updated_at": [
+        "updated_at",
+        "date_updated",
+        "last_updated",
+        "modified_at",
+        "updated_date",
+        "updated_on"
+    ],
+    "last_activity_at": [
+        "last_activity_at",
+        "last_activity",
+        "last_activity_date",
+        "last_contacted",
+        "last_interaction"
+    ],
+    "preferred_language": [
+        "preferred_language",
+        "lang",
+        "language"
+    ],
+    "notes": [
+        "notes",
+        "comments",
+        "note",
+        "remarks"
+    ],
+    "tags": [
+        "tags",
+        "labels",
+        "tag"
+    ]
 }

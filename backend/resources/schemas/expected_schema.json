@@ -1,8 +1,42 @@
 {
-    "expected_schema" : [
-        "transaction_id",
-        "customer_email",
-        "purchase_amount",
-        "purchase_date"
-    ]
+  "expected_schema": [
+    "customer_id",
+    "first_name",
+    "middle_name",
+    "last_name",
+    "full_name",
+
+    "email",
+    "phone_number",
+    "mobile_number",
+    "website",
+    "preferred_contact_method",
+
+    "street_address",
+    "city",
+    "state",
+    "postal_code",
+    "country",
+
+    "company",
+    "job_title",
+    "department",
+    "industry",
+
+    "customer_status",
+    "customer_tier",
+    "lead_source",
+    "lifecycle_stage",
+    "account_manager",
+    "region",
+
+    "date_of_birth",
+    "created_at",
+    "updated_at",
+    "last_activity_at",
+
+    "preferred_language",
+    "notes",
+    "tags"
+  ]
 }
