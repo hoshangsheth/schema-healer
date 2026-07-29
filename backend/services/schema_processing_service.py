@@ -50,8 +50,20 @@ def process_uploaded_schema(file) -> SchemaProcessingResult:
     # Stream
     csv_stream = StringIO(contents)
 
+    sample = csv_stream.read(2048)
+
+    csv_stream.seek(0)
+    try:
+        dialect = csv.Sniffer().sniff(
+            sample,
+            delimiters=",;\t|"
+        )
+    except csv.Error:
+        # Fall back to standard comma-separated CSV
+        dialect = csv.get_dialect("excel")
+
     # Read the stream
-    csv_reader = csv.reader(csv_stream)
+    csv_reader = csv.reader(csv_stream, dialect)
 
     # Extract header rows
     header_row = next(csv_reader, None)

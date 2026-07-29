@@ -326,7 +326,6 @@
     "country": [
         "country",
         "country_name",
-        "nation",
         "mailing_country"
     ],
     "country_code": [
@@ -853,7 +852,7 @@
         "deal_value",
         "opportunity_value",
         "deal_amount",
-        "amount"
+        "total_amount"
     ],
     "expected_revenue": [
         "expected_revenue",
