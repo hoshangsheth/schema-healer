@@ -3,35 +3,144 @@
         "customer_id",
         "client_id",
         "contact_id",
-        "cust_id"
+        "cust_id",
+        "account_id",
+        "party_id"
+    ],
+    "external_reference_id": [
+        "external_reference_id",
+        "external_id",
+        "external_ref",
+        "reference_id",
+        "ext_id"
+    ],
+    "legacy_customer_id": [
+        "legacy_customer_id",
+        "legacy_id",
+        "old_customer_id",
+        "legacy_account_id"
+    ],
+    "salutation": [
+        "salutation",
+        "prefix",
+        "honorific",
+        "mr_mrs"
     ],
     "first_name": [
         "first_name",
         "first",
         "firstname",
         "fname",
-        "given_name"
+        "given_name",
+        "contact_first_name"
     ],
     "middle_name": [
         "middle_name",
         "middle",
         "middlename",
-        "mname"
+        "mname",
+        "contact_middle_name"
     ],
     "last_name": [
         "last_name",
-        "last",
         "lastname",
         "lname",
-        "surname"
+        "surname",
+        "contact_last_name"
     ],
     "full_name": [
         "full_name",
         "contact_name",
         "customer_name",
-        "display_name",
+        "display_name_person",
         "fullname",
         "full name"
+    ],
+    "nickname": [
+        "nickname",
+        "preferred_name",
+        "known_as",
+        "alias_name"
+    ],
+    "suffix": [
+        "suffix",
+        "name_suffix",
+        "jr_sr",
+        "generation_suffix"
+    ],
+    "gender": [
+        "gender",
+        "sex",
+        "gender_identity"
+    ],
+    "date_of_birth": [
+        "date_of_birth",
+        "birth_date",
+        "birthdate",
+        "dob"
+    ],
+    "marital_status": [
+        "marital_status",
+        "marriage_status",
+        "civil_status"
+    ],
+    "preferred_language": [
+        "preferred_language",
+        "lang",
+        "language",
+        "language_preference",
+        "locale"
+    ],
+    "employee_id": [
+        "employee_id",
+        "emp_id",
+        "staff_id",
+        "personnel_id"
+    ],
+    "job_title": [
+        "job_title",
+        "title",
+        "jobtitle",
+        "position",
+        "title_role",
+        "designation"
+    ],
+    "job_function": [
+        "job_function",
+        "function",
+        "role_function",
+        "job_role"
+    ],
+    "department": [
+        "department",
+        "dept",
+        "division"
+    ],
+    "seniority_level": [
+        "seniority_level",
+        "seniority",
+        "level",
+        "job_level",
+        "career_level"
+    ],
+    "linkedin_profile": [
+        "linkedin_profile",
+        "linkedin_url",
+        "linkedin",
+        "linkedin_handle"
+    ],
+    "twitter_profile": [
+        "twitter_profile",
+        "twitter_url",
+        "twitter",
+        "twitter_handle",
+        "x_handle"
+    ],
+    "facebook_profile": [
+        "facebook_profile",
+        "facebook_url",
+        "facebook",
+        "fb_profile"
     ],
     "email": [
         "email",
@@ -39,10 +148,21 @@
         "email_address",
         "primary_email"
     ],
+    "secondary_email": [
+        "secondary_email",
+        "email_2",
+        "work_email",
+        "business_email"
+    ],
+    "alternate_email": [
+        "alternate_email",
+        "alt_email",
+        "other_email",
+        "personal_email"
+    ],
     "phone_number": [
         "phone_number",
         "business_phone",
-        "landline",
         "office_phone",
         "phone",
         "telephone"
@@ -54,11 +174,28 @@
         "mobile",
         "mobile_phone"
     ],
+    "home_phone": [
+        "home_phone",
+        "residence_phone",
+        "home_number"
+    ],
+    "work_phone": [
+        "work_phone",
+        "work_number",
+        "direct_phone",
+        "direct_line"
+    ],
+    "fax_number": [
+        "fax_number",
+        "fax",
+        "facsimile"
+    ],
     "website": [
         "website",
         "homepage",
         "url",
-        "web_address"
+        "web_address",
+        "company_website"
     ],
     "preferred_contact_method": [
         "preferred_contact_method",
@@ -66,138 +203,1505 @@
         "contact_preference",
         "preferred_contact"
     ],
+    "preferred_channel": [
+        "preferred_channel",
+        "communication_channel",
+        "outreach_channel"
+    ],
+    "best_contact_time": [
+        "best_contact_time",
+        "preferred_time",
+        "best_time_to_call",
+        "contact_window"
+    ],
+    "timezone": [
+        "timezone",
+        "time_zone",
+        "tz"
+    ],
+    "email_opt_in": [
+        "email_opt_in",
+        "email_subscribed",
+        "email_consent",
+        "opt_in_email"
+    ],
+    "sms_opt_in": [
+        "sms_opt_in",
+        "sms_subscribed",
+        "sms_consent",
+        "opt_in_sms"
+    ],
+    "phone_opt_in": [
+        "phone_opt_in",
+        "phone_consent",
+        "call_opt_in",
+        "opt_in_phone"
+    ],
+    "marketing_opt_in": [
+        "marketing_opt_in",
+        "marketing_consent",
+        "opt_in_marketing"
+    ],
+    "newsletter_opt_in": [
+        "newsletter_opt_in",
+        "newsletter_subscribed",
+        "subscribed_to_newsletter"
+    ],
+    "do_not_call": [
+        "do_not_call",
+        "dnc",
+        "no_call_flag"
+    ],
+    "do_not_email": [
+        "do_not_email",
+        "dne",
+        "no_email_flag",
+        "unsubscribed"
+    ],
+    "instagram_profile": [
+        "instagram_profile",
+        "instagram_url",
+        "instagram",
+        "ig_handle"
+    ],
+    "address_line_1": [
+        "address_line_1",
+        "address1",
+        "addr1",
+        "address_line1"
+    ],
+    "address_line_2": [
+        "address_line_2",
+        "address2",
+        "addr2",
+        "address_line2",
+        "suite_apt"
+    ],
     "street_address": [
         "street_address",
         "address",
-        "address1",
-        "address_line_1",
-        "street"
+        "street",
+        "mailing_address"
     ],
     "city": [
         "city",
-        "town"
+        "town",
+        "city_name",
+        "mailing_city"
+    ],
+    "district": [
+        "district",
+        "borough",
+        "locality"
+    ],
+    "county": [
+        "county",
+        "parish",
+        "county_name"
     ],
     "state": [
         "state",
         "province",
-        "state_province"
+        "state_province",
+        "mailing_state"
+    ],
+    "state_code": [
+        "state_code",
+        "state_abbr",
+        "province_code"
     ],
     "postal_code": [
         "postal_code",
         "postcode",
         "zip",
         "zip_code",
-        "zipcode"
+        "zipcode",
+        "postal_zone"
+    ],
+    "postal_region": [
+        "postal_region",
+        "postal_area",
+        "zip_region"
     ],
     "country": [
         "country",
-        "country_name"
+        "country_name",
+        "nation",
+        "mailing_country"
     ],
-    "company": [
+    "country_code": [
+        "country_code",
+        "iso_country_code",
+        "country_abbr"
+    ],
+    "region": [
+        "region",
+        "business_region",
+        "geo_region"
+    ],
+    "latitude": [
+        "latitude",
+        "lat",
+        "geo_lat"
+    ],
+    "longitude": [
+        "longitude",
+        "lng",
+        "long",
+        "geo_long"
+    ],
+    "sales_region": [
+        "sales_region",
+        "sales_area",
+        "sales_geo"
+    ],
+    "sales_district": [
+        "sales_district",
+        "sales_zone",
+        "district_sales"
+    ],
+    "sales_territory": [
+        "sales_territory",
+        "territory",
+        "coverage_territory"
+    ],
+    "billing_address_line_1": [
+        "billing_address_line_1",
+        "billing_address1",
+        "bill_to_address1",
+        "billing_street"
+    ],
+    "billing_address_line_2": [
+        "billing_address_line_2",
+        "billing_address2",
+        "bill_to_address2"
+    ],
+    "billing_city": [
+        "billing_city",
+        "bill_to_city",
+        "invoice_city"
+    ],
+    "billing_state": [
+        "billing_state",
+        "bill_to_state",
+        "invoice_state"
+    ],
+    "billing_postal_code": [
+        "billing_postal_code",
+        "billing_zip",
+        "bill_to_zip"
+    ],
+    "billing_country": [
+        "billing_country",
+        "bill_to_country",
+        "invoice_country"
+    ],
+    "shipping_address_line_1": [
+        "shipping_address_line_1",
+        "shipping_address1",
+        "ship_to_address1",
+        "shipping_street"
+    ],
+    "shipping_address_line_2": [
+        "shipping_address_line_2",
+        "shipping_address2",
+        "ship_to_address2"
+    ],
+    "shipping_city": [
+        "shipping_city",
+        "ship_to_city",
+        "delivery_city"
+    ],
+    "shipping_state": [
+        "shipping_state",
+        "ship_to_state",
+        "delivery_state"
+    ],
+    "shipping_postal_code": [
+        "shipping_postal_code",
+        "shipping_zip",
+        "ship_to_zip"
+    ],
+    "shipping_country": [
+        "shipping_country",
+        "ship_to_country",
+        "delivery_country"
+    ],
+    "company_name": [
+        "company_name",
         "company",
         "account_name",
-        "business",
         "firm",
-        "organisation",
-        "organization"
+        "company_name_field"
     ],
-    "job_title": [
-        "job_title",
-        "jobtitle",
-        "position"
+    "legal_business_name": [
+        "legal_business_name",
+        "registered_name",
+        "legal_name",
+        "official_name"
     ],
-    "department": [
-        "department",
-        "dept"
+    "display_name": [
+        "display_name",
+        "customer_display_name",
+        "account_display_name"
+    ],
+    "company_code": [
+        "company_code",
+        "account_code",
+        "business_code"
+    ],
+    "company_type": [
+        "company_type",
+        "account_type",
+        "org_type"
     ],
     "industry": [
         "industry",
         "industry_type",
         "sector"
     ],
-    "customer_status": [
-        "customer_status",
-        "account_status",
-        "customer_state",
-        "record_status",
-        "status"
+    "sub_industry": [
+        "sub_industry",
+        "sub_sector",
+        "industry_segment"
     ],
-    "customer_tier": [
-        "customer_tier",
-        "account_tier",
-        "customer_level",
-        "tier"
+    "business_category": [
+        "business_category",
+        "biz_category",
+        "company_category"
     ],
-    "lead_source": [
-        "lead_source",
-        "acquisition_source",
-        "lead_channel",
-        "source"
+    "business_type": [
+        "business_type",
+        "entity_type",
+        "legal_entity_type"
     ],
-    "lifecycle_stage": [
-        "lifecycle_stage",
-        "crm_stage",
-        "journey_stage",
-        "sales_stage",
-        "stage"
+    "ownership_type": [
+        "ownership_type",
+        "ownership_structure",
+        "company_ownership"
+    ],
+    "employee_count": [
+        "employee_count",
+        "num_employees",
+        "headcount",
+        "staff_count"
+    ],
+    "company_size": [
+        "company_size",
+        "org_size",
+        "business_size"
+    ],
+    "annual_revenue": [
+        "annual_revenue",
+        "yearly_revenue",
+        "revenue",
+        "annual_sales"
+    ],
+    "year_established": [
+        "year_established",
+        "founded_year",
+        "year_founded",
+        "incorporation_year"
+    ],
+    "parent_company": [
+        "parent_company",
+        "parent_account",
+        "parent_org"
+    ],
+    "subsidiary_of": [
+        "subsidiary_of",
+        "subsidiary_company",
+        "owned_by"
+    ],
+    "headquarters_location": [
+        "headquarters_location",
+        "hq_location",
+        "head_office"
+    ],
+    "branch_count": [
+        "branch_count",
+        "num_branches",
+        "location_count"
+    ],
+    "company_domain": [
+        "company_domain",
+        "domain",
+        "email_domain"
+    ],
+    "linkedin_company_page": [
+        "linkedin_company_page",
+        "linkedin_company_url",
+        "company_linkedin"
+    ],
+    "company_status": [
+        "company_status",
+        "account_status_company",
+        "business_status"
+    ],
+    "is_active": [
+        "is_active",
+        "active_flag",
+        "active_status"
+    ],
+    "is_customer": [
+        "is_customer",
+        "customer_flag",
+        "customer_type_flag"
+    ],
+    "is_partner": [
+        "is_partner",
+        "partner_flag",
+        "partner_status_flag"
+    ],
+    "is_vendor": [
+        "is_vendor",
+        "vendor_flag",
+        "supplier_flag"
+    ],
+    "currency": [
+        "currency",
+        "billing_currency",
+        "account_currency"
+    ],
+    "tax_identifier": [
+        "tax_identifier",
+        "tax_id",
+        "ein",
+        "vat_id"
+    ],
+    "vat_number": [
+        "vat_number",
+        "vat_reg_number",
+        "gst_number"
+    ],
+    "credit_limit": [
+        "credit_limit",
+        "credit_ceiling",
+        "max_credit"
+    ],
+    "payment_terms": [
+        "payment_terms",
+        "terms",
+        "net_terms"
     ],
     "account_manager": [
         "account_manager",
         "account_executive",
-        "customer_success_manager",
+        "relationship_manager"
+    ],
+    "account_owner": [
+        "account_owner",
         "owner",
-        "relationship_manager",
-        "sales_rep",
-        "sales_representative"
+        "owner_name",
+        "record_owner_account"
     ],
-    "region": [
-        "region",
-        "business_region",
-        "sales_region",
-        "territory"
+    "sales_team": [
+        "sales_team",
+        "assigned_team_sales",
+        "team_name"
     ],
-    "date_of_birth": [
-        "date_of_birth",
-        "birth_date",
-        "birthdate",
-        "dob"
+    "business_unit": [
+        "business_unit",
+        "bu",
+        "division_unit"
     ],
-    "created_at": [
+    "company_description": [
+        "company_description",
+        "about_company",
+        "company_bio"
+    ],
+    "company_summary": [
+        "company_summary",
+        "company_overview",
+        "org_summary"
+    ],
+    "customer_since": [
+        "customer_since",
+        "customer_start_date",
+        "onboard_date"
+    ],
+    "account_created_at": [
+        "account_created_at",
         "created_at",
+        "account_creation_date",
+        "account_open_date",
         "created_date",
-        "created_on",
-        "creation_date",
-        "date_created"
+        "created_time",
+        "created_on"
     ],
-    "updated_at": [
-        "updated_at",
-        "date_updated",
-        "last_updated",
-        "modified_at",
-        "updated_date",
-        "updated_on"
+    "account_updated_at": [
+        "account_updated_at",
+        "account_last_modified",
+        "account_last_updated"
+    ],
+    "lead_id": [
+        "lead_id",
+        "prospect_id",
+        "inquiry_id"
+    ],
+    "lead_name": [
+        "lead_name",
+        "prospect_name",
+        "inquiry_name"
+    ],
+    "lead_type": [
+        "lead_type",
+        "prospect_type",
+        "inquiry_type"
+    ],
+    "lead_status": [
+        "lead_status",
+        "prospect_status",
+        "inquiry_status"
+    ],
+    "lead_score": [
+        "lead_score",
+        "prospect_score",
+        "scoring"
+    ],
+    "lead_rating": [
+        "lead_rating",
+        "prospect_rating",
+        "hot_warm_cold"
+    ],
+    "qualification_status": [
+        "qualification_status",
+        "qualified_flag",
+        "bant_status"
+    ],
+    "qualification_date": [
+        "qualification_date",
+        "qualified_on",
+        "qualified_date"
+    ],
+    "lead_owner": [
+        "lead_owner",
+        "prospect_owner",
+        "prospect_assignee"
+    ],
+    "assigned_sales_rep": [
+        "assigned_sales_rep",
+        "sales_rep",
+        "sales_representative",
+        "assigned_rep"
+    ],
+    "assigned_team": [
+        "assigned_team",
+        "team_assignment",
+        "responsible_team_lead"
+    ],
+    "lead_source": [
+        "lead_source",
+        "source",
+        "inquiry_source"
+    ],
+    "lead_source_category": [
+        "lead_source_category",
+        "source_category",
+        "source_type"
+    ],
+    "lead_source_detail": [
+        "lead_source_detail",
+        "source_detail",
+        "source_sub_type"
+    ],
+    "referral_source": [
+        "referral_source",
+        "referred_by",
+        "referral_name"
+    ],
+    "converted_at": [
+        "converted_at",
+        "conversion_date",
+        "convert_date"
+    ],
+    "converted_by": [
+        "converted_by",
+        "conversion_owner",
+        "conversion_user"
+    ],
+    "converted_account": [
+        "converted_account",
+        "converted_account_id",
+        "resulting_account"
+    ],
+    "converted_contact": [
+        "converted_contact",
+        "converted_contact_id",
+        "resulting_contact"
+    ],
+    "converted_opportunity": [
+        "converted_opportunity",
+        "converted_opportunity_id",
+        "resulting_opportunity"
+    ],
+    "is_marketing_qualified": [
+        "is_marketing_qualified",
+        "mql",
+        "mql_flag"
+    ],
+    "is_sales_qualified": [
+        "is_sales_qualified",
+        "sql",
+        "sql_flag"
+    ],
+    "is_converted": [
+        "is_converted",
+        "converted_flag",
+        "conversion_status"
+    ],
+    "is_disqualified": [
+        "is_disqualified",
+        "disqualified_flag",
+        "disqualified_status"
+    ],
+    "disqualification_reason": [
+        "disqualification_reason",
+        "reason_disqualified",
+        "not_qualified_reason"
+    ],
+    "loss_reason": [
+        "loss_reason",
+        "lost_reason",
+        "reason_lost",
+        "reason_for_loss"
+    ],
+    "lead_priority": [
+        "lead_priority",
+        "priority",
+        "prospect_priority"
+    ],
+    "urgency_level": [
+        "urgency_level",
+        "urgency",
+        "priority_level_urgency"
+    ],
+    "next_follow_up": [
+        "next_follow_up",
+        "follow_up_date",
+        "next_touchpoint"
+    ],
+    "follow_up_status": [
+        "follow_up_status",
+        "followup_state",
+        "next_step_status"
+    ],
+    "follow_up_owner": [
+        "follow_up_owner",
+        "followup_assignee",
+        "next_step_owner"
+    ],
+    "first_contacted_at": [
+        "first_contacted_at",
+        "first_contact_date",
+        "initial_contact_date"
+    ],
+    "last_contacted_at": [
+        "last_contacted_at",
+        "last_contacted",
+        "last_interaction",
+        "last_touch_date"
+    ],
+    "last_response_at": [
+        "last_response_at",
+        "last_reply_date",
+        "last_response_date"
+    ],
+    "opportunity_id": [
+        "opportunity_id",
+        "opp_id",
+        "deal_id"
+    ],
+    "opportunity_name": [
+        "opportunity_name",
+        "opp_name",
+        "deal_name",
+        "potential_name"
+    ],
+    "opportunity_type": [
+        "opportunity_type",
+        "opp_type",
+        "deal_type"
+    ],
+    "pipeline_name": [
+        "pipeline_name",
+        "sales_pipeline",
+        "pipeline"
+    ],
+    "pipeline_stage": [
+        "pipeline_stage",
+        "stage",
+        "deal_stage"
+    ],
+    "pipeline_position": [
+        "pipeline_position",
+        "stage_order",
+        "pipeline_index"
+    ],
+    "sales_stage": [
+        "sales_stage",
+        "crm_stage",
+        "journey_stage",
+        "opportunity_stage"
+    ],
+    "forecast_category": [
+        "forecast_category",
+        "forecast_bucket",
+        "forecast_type"
+    ],
+    "deal_value": [
+        "deal_value",
+        "opportunity_value",
+        "deal_amount",
+        "amount"
+    ],
+    "expected_revenue": [
+        "expected_revenue",
+        "forecasted_revenue",
+        "projected_revenue"
+    ],
+    "estimated_revenue": [
+        "estimated_revenue",
+        "est_revenue",
+        "revenue_estimate"
+    ],
+    "weighted_revenue": [
+        "weighted_revenue",
+        "weighted_amount",
+        "probability_weighted_revenue"
+    ],
+    "currency_code": [
+        "currency_code",
+        "iso_currency_code",
+        "deal_currency"
+    ],
+    "win_probability": [
+        "win_probability",
+        "probability",
+        "close_probability"
+    ],
+    "confidence_score": [
+        "confidence_score",
+        "deal_confidence",
+        "confidence_level"
+    ],
+    "expected_close_date": [
+        "expected_close_date",
+        "close_date",
+        "target_close_date"
+    ],
+    "actual_close_date": [
+        "actual_close_date",
+        "closed_date",
+        "final_close_date"
+    ],
+    "opportunity_created_at": [
+        "opportunity_created_at",
+        "opp_created_date",
+        "deal_created_date"
+    ],
+    "opportunity_updated_at": [
+        "opportunity_updated_at",
+        "opp_last_modified",
+        "deal_last_updated"
+    ],
+    "opportunity_owner": [
+        "opportunity_owner",
+        "opp_owner",
+        "deal_owner"
+    ],
+    "sales_manager": [
+        "sales_manager",
+        "sales_mgr",
+        "regional_manager_sales"
+    ],
+    "sales_region_manager": [
+        "sales_region_manager",
+        "regional_sales_manager",
+        "region_manager"
+    ],
+    "deal_status": [
+        "deal_status",
+        "opportunity_status",
+        "opp_status"
+    ],
+    "deal_outcome": [
+        "deal_outcome",
+        "opportunity_outcome",
+        "opp_outcome"
+    ],
+    "win_loss_status": [
+        "win_loss_status",
+        "won_lost",
+        "win_loss"
+    ],
+    "win_reason": [
+        "win_reason",
+        "reason_won",
+        "reason_for_win"
+    ],
+    "contract_value": [
+        "contract_value",
+        "contract_amount",
+        "total_contract_value"
+    ],
+    "contract_start_date": [
+        "contract_start_date",
+        "agreement_start_date",
+        "agreement_effective_date"
+    ],
+    "contract_end_date": [
+        "contract_end_date",
+        "agreement_end_date",
+        "agreement_expiry_date"
+    ],
+    "contract_term_months": [
+        "contract_term_months",
+        "term_length_months",
+        "contract_duration"
+    ],
+    "renewal_date": [
+        "renewal_date",
+        "contract_renewal_date",
+        "next_contract_date"
+    ],
+    "primary_product": [
+        "primary_product",
+        "main_product",
+        "product_name"
+    ],
+    "product_category": [
+        "product_category",
+        "product_line",
+        "product_type"
+    ],
+    "product_quantity": [
+        "product_quantity",
+        "quantity",
+        "units_sold"
+    ],
+    "discount_percentage": [
+        "discount_percentage",
+        "discount_pct",
+        "discount_rate"
+    ],
+    "discount_amount": [
+        "discount_amount",
+        "discount_value",
+        "discount_total"
+    ],
+    "primary_competitor": [
+        "primary_competitor",
+        "main_competitor",
+        "competitor_name"
+    ],
+    "competitor_outcome": [
+        "competitor_outcome",
+        "competitive_result",
+        "competitive_status"
+    ],
+    "activity_id": [
+        "activity_id",
+        "task_id_activity",
+        "interaction_id"
+    ],
+    "activity_type": [
+        "activity_type",
+        "interaction_type",
+        "task_type"
+    ],
+    "activity_subject": [
+        "activity_subject",
+        "activity_title",
+        "subject_line"
+    ],
+    "activity_status": [
+        "activity_status",
+        "interaction_status",
+        "task_status"
+    ],
+    "activity_priority": [
+        "activity_priority",
+        "task_priority",
+        "interaction_priority"
+    ],
+    "last_email_sent_at": [
+        "last_email_sent_at",
+        "last_email_sent",
+        "last_outbound_email"
+    ],
+    "last_email_received_at": [
+        "last_email_received_at",
+        "last_email_received",
+        "last_inbound_email"
+    ],
+    "last_email_opened_at": [
+        "last_email_opened_at",
+        "last_email_open_date",
+        "last_open_date"
+    ],
+    "email_count": [
+        "email_count",
+        "total_emails",
+        "number_of_emails"
+    ],
+    "emails_sent": [
+        "emails_sent",
+        "outbound_email_count",
+        "sent_email_count"
+    ],
+    "emails_received": [
+        "emails_received",
+        "inbound_email_count",
+        "received_email_count"
+    ],
+    "last_call_at": [
+        "last_call_at",
+        "last_call_date",
+        "last_call"
+    ],
+    "call_count": [
+        "call_count",
+        "total_calls",
+        "number_of_calls"
+    ],
+    "outbound_calls": [
+        "outbound_calls",
+        "calls_made",
+        "dialed_calls"
+    ],
+    "inbound_calls": [
+        "inbound_calls",
+        "calls_received",
+        "received_calls"
+    ],
+    "call_duration_minutes": [
+        "call_duration_minutes",
+        "call_duration",
+        "total_call_minutes"
+    ],
+    "last_meeting_at": [
+        "last_meeting_at",
+        "last_meeting_date",
+        "last_meeting"
+    ],
+    "next_meeting_at": [
+        "next_meeting_at",
+        "next_meeting_date",
+        "upcoming_meeting"
+    ],
+    "meeting_count": [
+        "meeting_count",
+        "total_meetings",
+        "total_meeting_count"
+    ],
+    "meeting_outcome": [
+        "meeting_outcome",
+        "meeting_result",
+        "meeting_result_notes"
+    ],
+    "task_count": [
+        "task_count",
+        "total_tasks",
+        "number_of_tasks"
+    ],
+    "open_tasks": [
+        "open_tasks",
+        "pending_tasks",
+        "incomplete_tasks"
+    ],
+    "completed_tasks": [
+        "completed_tasks",
+        "closed_tasks",
+        "finished_tasks"
+    ],
+    "overdue_tasks": [
+        "overdue_tasks",
+        "past_due_tasks",
+        "late_tasks"
+    ],
+    "next_task_due_at": [
+        "next_task_due_at",
+        "next_task_date",
+        "upcoming_task_due"
+    ],
+    "note_count": [
+        "note_count",
+        "total_notes",
+        "number_of_notes"
+    ],
+    "last_note_at": [
+        "last_note_at",
+        "last_note_date",
+        "last_note_added"
+    ],
+    "last_activity_type": [
+        "last_activity_type",
+        "last_interaction_type",
+        "most_recent_activity_type"
     ],
     "last_activity_at": [
         "last_activity_at",
-        "last_activity",
         "last_activity_date",
-        "last_contacted",
-        "last_interaction"
+        "last_activity"
     ],
-    "preferred_language": [
-        "preferred_language",
-        "lang",
-        "language"
+    "last_engagement_at": [
+        "last_engagement_at",
+        "last_engaged_date",
+        "last_engaged"
     ],
-    "notes": [
-        "notes",
-        "comments",
-        "note",
-        "remarks"
+    "engagement_score": [
+        "engagement_score",
+        "engagement_rating",
+        "engagement_index"
     ],
-    "tags": [
-        "tags",
-        "labels",
-        "tag"
+    "response_time_hours": [
+        "response_time_hours",
+        "response_time",
+        "hours_to_respond"
+    ],
+    "average_response_time": [
+        "average_response_time",
+        "avg_response_time",
+        "mean_response_time"
+    ],
+    "first_response_at": [
+        "first_response_at",
+        "first_response_date",
+        "time_to_first_response"
+    ],
+    "next_activity_at": [
+        "next_activity_at",
+        "next_activity_date",
+        "upcoming_activity"
+    ],
+    "next_activity_type": [
+        "next_activity_type",
+        "next_interaction_type",
+        "upcoming_activity_type"
+    ],
+    "follow_up_due_at": [
+        "follow_up_due_at",
+        "followup_due_date",
+        "followup_deadline"
+    ],
+    "activity_owner": [
+        "activity_owner",
+        "task_owner",
+        "interaction_owner"
+    ],
+    "last_modified_by": [
+        "last_modified_by",
+        "modified_by",
+        "updated_by"
+    ],
+    "campaign_id": [
+        "campaign_id",
+        "marketing_campaign_id",
+        "mkt_campaign_id"
+    ],
+    "campaign_name": [
+        "campaign_name",
+        "marketing_campaign_name",
+        "mkt_campaign_name"
+    ],
+    "campaign_type": [
+        "campaign_type",
+        "campaign_category",
+        "mkt_campaign_type"
+    ],
+    "campaign_status": [
+        "campaign_status",
+        "campaign_state",
+        "mkt_campaign_status"
+    ],
+    "campaign_owner": [
+        "campaign_owner",
+        "campaign_manager",
+        "mkt_campaign_manager"
+    ],
+    "acquisition_source": [
+        "acquisition_source",
+        "acquisition_channel_source",
+        "original_source"
+    ],
+    "acquisition_channel": [
+        "acquisition_channel",
+        "channel",
+        "signup_channel"
+    ],
+    "acquisition_medium": [
+        "acquisition_medium",
+        "medium",
+        "signup_medium"
+    ],
+    "utm_source": [
+        "utm_source"
+    ],
+    "utm_medium": [
+        "utm_medium"
+    ],
+    "utm_campaign": [
+        "utm_campaign"
+    ],
+    "utm_term": [
+        "utm_term"
+    ],
+    "utm_content": [
+        "utm_content"
+    ],
+    "referrer_name": [
+        "referrer_name",
+        "referring_site",
+        "referrer"
+    ],
+    "referrer_type": [
+        "referrer_type",
+        "referral_type",
+        "referral_category"
+    ],
+    "partner_name": [
+        "partner_name",
+        "channel_partner",
+        "reseller_name"
+    ],
+    "affiliate_id": [
+        "affiliate_id",
+        "affiliate_code",
+        "affiliate_code_id"
+    ],
+    "marketing_score": [
+        "marketing_score",
+        "mkt_score",
+        "mkt_lead_score"
+    ],
+    "engagement_level": [
+        "engagement_level",
+        "engagement_tier",
+        "engagement_bucket"
+    ],
+    "campaign_response": [
+        "campaign_response",
+        "response_flag",
+        "responded_flag"
+    ],
+    "campaign_response_date": [
+        "campaign_response_date",
+        "response_date",
+        "response_recorded_date"
+    ],
+    "marketing_segment": [
+        "marketing_segment",
+        "mkt_segment",
+        "audience_segment"
+    ],
+    "persona": [
+        "persona",
+        "buyer_persona",
+        "target_persona"
+    ],
+    "buyer_journey_stage": [
+        "buyer_journey_stage",
+        "funnel_stage",
+        "customer_journey_stage"
+    ],
+    "advertising_platform": [
+        "advertising_platform",
+        "ad_platform",
+        "ad_network"
+    ],
+    "ad_campaign_name": [
+        "ad_campaign_name",
+        "ad_campaign",
+        "ppc_campaign_name"
+    ],
+    "ad_group_name": [
+        "ad_group_name",
+        "ad_group",
+        "ppc_ad_group"
+    ],
+    "keyword": [
+        "keyword",
+        "search_keyword",
+        "ad_keyword"
+    ],
+    "landing_page": [
+        "landing_page",
+        "landing_url",
+        "entry_page"
+    ],
+    "first_visit_date": [
+        "first_visit_date",
+        "first_website_visit",
+        "first_site_visit"
+    ],
+    "last_visit_date": [
+        "last_visit_date",
+        "last_website_visit",
+        "last_site_visit"
+    ],
+    "session_count": [
+        "session_count",
+        "total_sessions",
+        "visit_count"
+    ],
+    "consent_status": [
+        "consent_status",
+        "consent_flag",
+        "gdpr_consent_status"
+    ],
+    "consent_date": [
+        "consent_date",
+        "consent_given_date",
+        "gdpr_consent_date"
+    ],
+    "privacy_policy_version": [
+        "privacy_policy_version",
+        "policy_version",
+        "policy_version_accepted"
+    ],
+    "customer_lifecycle_status": [
+        "customer_lifecycle_status",
+        "lifecycle_stage",
+        "journey_status"
+    ],
+    "customer_segment": [
+        "customer_segment",
+        "segment",
+        "account_segment"
+    ],
+    "account_health": [
+        "account_health",
+        "overall_health",
+        "overall_account_health"
+    ],
+    "onboarding_status": [
+        "onboarding_status",
+        "onboarding_state",
+        "implementation_status"
+    ],
+    "onboarding_start_date": [
+        "onboarding_start_date",
+        "onboarding_started_at",
+        "kickoff_date"
+    ],
+    "onboarding_completion_date": [
+        "onboarding_completion_date",
+        "onboarding_completed_at",
+        "go_live_date"
+    ],
+    "implementation_owner": [
+        "implementation_owner",
+        "onboarding_owner",
+        "implementation_manager"
+    ],
+    "health_score": [
+        "health_score",
+        "customer_health_score",
+        "account_health_score"
+    ],
+    "health_status": [
+        "health_status",
+        "health_rating",
+        "account_health_status"
+    ],
+    "churn_risk": [
+        "churn_risk",
+        "churn_probability",
+        "attrition_risk"
+    ],
+    "expansion_potential": [
+        "expansion_potential",
+        "upsell_potential",
+        "upsell_score"
+    ],
+    "renewal_status": [
+        "renewal_status",
+        "renewal_state",
+        "contract_renewal_status"
+    ],
+    "renewal_owner": [
+        "renewal_owner",
+        "renewal_manager",
+        "renewal_rep"
+    ],
+    "renewal_probability": [
+        "renewal_probability",
+        "renewal_likelihood",
+        "renewal_confidence"
+    ],
+    "renewal_value": [
+        "renewal_value",
+        "renewal_amount",
+        "renewal_amount_expected"
+    ],
+    "support_ticket_count": [
+        "support_ticket_count",
+        "total_tickets",
+        "ticket_count"
+    ],
+    "open_ticket_count": [
+        "open_ticket_count",
+        "pending_tickets",
+        "active_ticket_count"
+    ],
+    "closed_ticket_count": [
+        "closed_ticket_count",
+        "resolved_tickets",
+        "resolved_ticket_count"
+    ],
+    "last_ticket_created_at": [
+        "last_ticket_created_at",
+        "last_ticket_opened",
+        "last_case_opened"
+    ],
+    "last_ticket_closed_at": [
+        "last_ticket_closed_at",
+        "last_ticket_resolved",
+        "last_case_closed"
+    ],
+    "sla_status": [
+        "sla_status",
+        "sla_state",
+        "sla_compliance_status"
+    ],
+    "sla_response_time": [
+        "sla_response_time",
+        "sla_first_response_time",
+        "sla_response_target"
+    ],
+    "sla_resolution_time": [
+        "sla_resolution_time",
+        "sla_resolve_time",
+        "sla_resolve_target"
+    ],
+    "customer_satisfaction_score": [
+        "customer_satisfaction_score",
+        "csat",
+        "csat_score"
+    ],
+    "net_promoter_score": [
+        "net_promoter_score",
+        "nps",
+        "nps_score"
+    ],
+    "customer_effort_score": [
+        "customer_effort_score",
+        "ces",
+        "ces_score"
+    ],
+    "escalation_status": [
+        "escalation_status",
+        "escalation_state",
+        "escalated_flag"
+    ],
+    "escalation_level": [
+        "escalation_level",
+        "escalation_tier",
+        "escalation_tier_level"
+    ],
+    "last_escalated_at": [
+        "last_escalated_at",
+        "last_escalation_date",
+        "last_escalation_time"
+    ],
+    "retention_status": [
+        "retention_status",
+        "retention_state",
+        "customer_retention_status"
+    ],
+    "last_renewal_date": [
+        "last_renewal_date",
+        "previous_renewal_date",
+        "most_recent_renewal"
+    ],
+    "next_renewal_date": [
+        "next_renewal_date",
+        "upcoming_renewal_date",
+        "upcoming_renewal"
+    ],
+    "cancellation_reason": [
+        "cancellation_reason",
+        "churn_reason",
+        "reason_for_cancellation"
+    ],
+    "customer_success_manager": [
+        "customer_success_manager",
+        "csm",
+        "success_manager"
+    ],
+    "support_owner": [
+        "support_owner",
+        "support_rep",
+        "case_owner"
+    ],
+    "technical_account_manager": [
+        "technical_account_manager",
+        "tam",
+        "tech_account_manager"
+    ],
+    "record_id": [
+        "record_id",
+        "row_id",
+        "unique_id"
+    ],
+    "record_type": [
+        "record_type",
+        "object_type",
+        "entity_type_record"
+    ],
+    "record_status": [
+        "record_status",
+        "status",
+        "entity_status",
+        "row_status"
+    ],
+    "record_version": [
+        "record_version",
+        "version_number",
+        "revision"
+    ],
+    "record_owner": [
+        "record_owner",
+        "assigned_owner",
+        "assigned_to"
+    ],
+    "record_created_by": [
+        "record_created_by",
+        "created_by",
+        "creator"
+    ],
+    "record_updated_by": [
+        "record_updated_by",
+        "modified_by_user",
+        "last_editor"
+    ],
+    "deleted_at": [
+        "deleted_at",
+        "deletion_date",
+        "date_deleted"
+    ],
+    "archived_at": [
+        "archived_at",
+        "archive_date",
+        "date_archived"
+    ],
+    "last_synced_at": [
+        "last_synced_at",
+        "last_sync_date",
+        "last_sync_time"
+    ],
+    "last_modified_at": [
+        "last_modified_at",
+        "modified_at",
+        "date_updated",
+        "last_updated",
+        "updated_date",
+        "updated_on"
+    ],
+    "import_batch_id": [
+        "import_batch_id",
+        "batch_id",
+        "import_batch"
+    ],
+    "import_source": [
+        "import_source",
+        "data_source_import",
+        "import_origin"
+    ],
+    "imported_at": [
+        "imported_at",
+        "import_date",
+        "import_timestamp"
+    ],
+    "external_system": [
+        "external_system",
+        "source_application",
+        "source_crm"
+    ],
+    "external_system_id": [
+        "external_system_id",
+        "foreign_key_id",
+        "external_key"
+    ],
+    "sync_status": [
+        "sync_status",
+        "sync_state",
+        "integration_sync_status"
+    ],
+    "sync_error": [
+        "sync_error",
+        "sync_error_message",
+        "sync_failure_message"
+    ],
+    "duplicate_status": [
+        "duplicate_status",
+        "dedupe_status",
+        "dupe_status"
+    ],
+    "duplicate_group": [
+        "duplicate_group",
+        "dedupe_group_id",
+        "dupe_cluster_id"
+    ],
+    "verification_status": [
+        "verification_status",
+        "verified_flag",
+        "validation_status"
+    ],
+    "verification_date": [
+        "verification_date",
+        "verified_on",
+        "validated_on"
+    ],
+    "is_deleted": [
+        "is_deleted",
+        "deleted_flag",
+        "deletion_flag"
+    ],
+    "is_archived": [
+        "is_archived",
+        "archived_flag",
+        "archival_flag"
+    ],
+    "is_locked": [
+        "is_locked",
+        "locked_flag",
+        "record_locked_flag"
+    ],
+    "visibility_level": [
+        "visibility_level",
+        "visibility",
+        "sharing_level"
+    ],
+    "access_role": [
+        "access_role",
+        "permission_role",
+        "user_role"
+    ],
+    "owner_team": [
+        "owner_team",
+        "responsible_team",
+        "assigned_business_unit"
+    ],
+    "source_system": [
+        "source_system",
+        "originating_system",
+        "origin_system"
+    ],
+    "source_file": [
+        "source_file",
+        "import_file_name",
+        "import_filename"
+    ],
+    "integration_name": [
+        "integration_name",
+        "connector_name",
+        "integration_source_name"
+    ],
+    "integration_version": [
+        "integration_version",
+        "connector_version",
+        "integration_release_version"
     ]
 }

@@ -19,7 +19,6 @@ from backend.services.recovery_engine.recovery_matcher import RecoveryMatcher
 
 from backend.domain.schema.canonical_schema import CanonicalSchema
 
-
 class FuzzyMatcher(RecoveryMatcher):
     """
     Performs fuzzy schema recovery using RapidFuzz.
@@ -32,7 +31,9 @@ class FuzzyMatcher(RecoveryMatcher):
     def __init__(
         self,
         canonical_schema: CanonicalSchema,
-        confidence_threshold: float,
+        alias_lookup: dict[str, str],
+        canonical_alias_lookup: dict[str, list[str]],
+        confidence_threshold: float
     ) -> None:
         """
         Initialize the fuzzy matcher.
@@ -46,7 +47,9 @@ class FuzzyMatcher(RecoveryMatcher):
             Minimum similarity score required to accept a fuzzy match.
         """
         self._canonical_schema = canonical_schema
+        self._alias_lookup = alias_lookup
         self._confidence_threshold = confidence_threshold
+        self._canonical_alias_lookup = canonical_alias_lookup
 
     def process(
         self,
@@ -57,16 +60,16 @@ class FuzzyMatcher(RecoveryMatcher):
 
         Parameters
         ----------
-        mappings:
-            Collection of SchemaMapping objects to process.
+        alias_lookup:
+            Dictionary mapping normalized aliases
+            to canonical field names.
         """
 
         # Create a working copy so each canonical field can only be
         # matched once during this recovery operation.
-        available_canonical_fields = [
-            field.name
-            for field in self._canonical_schema.fields
-        ]
+        available_aliases = list(
+            self._alias_lookup.keys()
+        )
 
         # Process each mapping independently.
         for mapping in mappings:
@@ -75,10 +78,10 @@ class FuzzyMatcher(RecoveryMatcher):
             if mapping.status != MappingStatus.PENDING:
                 continue
 
-            # Find the closest canonical field using RapidFuzz.
+            # Find the closest matching alias using RapidFuzz.
             match_result = process.extractOne(
                 query=mapping.normalized_source_header,
-                choices=available_canonical_fields,
+                choices=available_aliases,
                 scorer=fuzz.WRatio,
             )
 
@@ -87,7 +90,17 @@ class FuzzyMatcher(RecoveryMatcher):
                 continue
 
             # Unpack the best fuzzy match.
-            canonical_field, confidence_score, _ = match_result
+            matched_alias, confidence_score, _ = match_result
+
+            canonical_field = self._alias_lookup[matched_alias]
+
+            print("\n" + "=" * 80)
+            print(f"[FUZZY] Source Header    : {mapping.source_header}")
+            print(f"[FUZZY] Normalized      : {mapping.normalized_source_header}")
+            print(f"[FUZZY] Matched Alias   : {matched_alias}")
+            print(f"[FUZZY] Canonical Field : {canonical_field}")
+            print(f"[FUZZY] Similarity      : {confidence_score:.2f}")
+            print(f"[FUZZY] Threshold       : {self._confidence_threshold}")
 
             # Reject matches below the configured threshold.
             if confidence_score < self._confidence_threshold:
@@ -100,4 +113,9 @@ class FuzzyMatcher(RecoveryMatcher):
 
             # Remove the matched canonical field to enforce a
             # one-to-one mapping.
-            available_canonical_fields.remove(canonical_field)
+            aliases_to_remove = self._canonical_alias_lookup[canonical_field]
+            print(f"[FUZZY] Removing Aliases: {aliases_to_remove}")
+
+            for alias in aliases_to_remove:
+                if alias in available_aliases:
+                    available_aliases.remove(alias)

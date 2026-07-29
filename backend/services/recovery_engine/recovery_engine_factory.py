@@ -11,13 +11,16 @@ This module serves as a Composition Root for the recovery pipeline.
 from pathlib import Path
 from backend.core.config import load_rule_mappings
 from backend.domain.schema.schema_loader import CanonicalSchemaLoader
-from backend.services.normalization.header_normalizer import normalize_header
 from backend.services.recovery_engine.recovery_matcher import RecoveryMatcher
 from backend.services.recovery_engine.rule_matcher import RuleMatcher
 from backend.services.recovery_engine.fuzzy_matcher import FuzzyMatcher
 from backend.services.recovery_engine.recovery_engine import RecoveryEngine
 from backend.services.recovery_engine.semantic_matcher import SemanticMatcher
-
+from backend.services.recovery_engine.rule_mapping_utils import (
+    validate_rule_mappings,
+    build_alias_lookup,
+    build_canonical_alias_lookup
+)
 
 # TEMPORARY CONFIGURATION (TO BE MOVED INTO config.py LATER)
 DEFAULT_FUZZY_CONFIDENCE_THRESHOLD = 85.0
@@ -29,10 +32,18 @@ CANONICAL_SCHEMA_PATH = Path(
 
 # LOAD RULE MAPPINGS
 rule_mappings = load_rule_mappings()
-normalized_rule_mappings = {
-    normalize_header(key): value
-    for key, value in rule_mappings.items()
-}
+
+normalized_rule_mappings = validate_rule_mappings(
+    rule_mappings
+)
+
+alias_lookup = build_alias_lookup(
+    normalized_rule_mappings
+)
+
+canonical_alias_lookup = build_canonical_alias_lookup(
+    normalized_rule_mappings
+)
 
 # RECOVERY ENGINE FACTORY
 class RecoveryEngineFactory:
@@ -60,11 +71,13 @@ class RecoveryEngineFactory:
 
         matchers: list[RecoveryMatcher] = [
             RuleMatcher(
-                rule_mappings = normalized_rule_mappings
+                alias_lookup=alias_lookup
             ),
             FuzzyMatcher(
-                canonical_schema = canonical_schema,
-                confidence_threshold = DEFAULT_FUZZY_CONFIDENCE_THRESHOLD
+                canonical_schema=canonical_schema,
+                alias_lookup=alias_lookup,
+                canonical_alias_lookup=canonical_alias_lookup,
+                confidence_threshold=DEFAULT_FUZZY_CONFIDENCE_THRESHOLD,
             ),
             SemanticMatcher(
                 canonical_schema=canonical_schema

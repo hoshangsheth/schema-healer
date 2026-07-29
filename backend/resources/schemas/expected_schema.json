@@ -1,42 +1,423 @@
 {
   "expected_schema": [
     "customer_id",
+    "external_reference_id",
+    "legacy_customer_id",
+
+    "salutation",
+
     "first_name",
     "middle_name",
     "last_name",
     "full_name",
+    "nickname",
+    "suffix",
 
-    "email",
-    "phone_number",
-    "mobile_number",
-    "website",
-    "preferred_contact_method",
-
-    "street_address",
-    "city",
-    "state",
-    "postal_code",
-    "country",
-
-    "company",
-    "job_title",
-    "department",
-    "industry",
-
-    "customer_status",
-    "customer_tier",
-    "lead_source",
-    "lifecycle_stage",
-    "account_manager",
-    "region",
-
+    "gender",
     "date_of_birth",
-    "created_at",
-    "updated_at",
-    "last_activity_at",
+    "marital_status",
 
     "preferred_language",
-    "notes",
-    "tags"
+
+    "employee_id",
+    "job_title",
+    "job_function",
+    "department",
+    "seniority_level",
+
+    "linkedin_profile",
+    "twitter_profile",
+    "facebook_profile",
+
+        "email",
+    "secondary_email",
+    "alternate_email",
+
+    "phone_number",
+    "mobile_number",
+    "home_phone",
+    "work_phone",
+    "fax_number",
+
+    "website",
+
+    "preferred_contact_method",
+    "preferred_channel",
+    "best_contact_time",
+    "timezone",
+
+    "email_opt_in",
+    "sms_opt_in",
+    "phone_opt_in",
+    "marketing_opt_in",
+    "newsletter_opt_in",
+
+    "do_not_call",
+    "do_not_email",
+
+    "instagram_profile",
+
+        "address_line_1",
+    "address_line_2",
+    "street_address",
+
+    "city",
+    "district",
+    "county",
+    "state",
+    "state_code",
+
+    "postal_code",
+    "postal_region",
+
+    "country",
+    "country_code",
+
+    "region",
+
+    "latitude",
+    "longitude",
+
+    "sales_region",
+    "sales_district",
+    "sales_territory",
+
+    "billing_address_line_1",
+    "billing_address_line_2",
+    "billing_city",
+    "billing_state",
+    "billing_postal_code",
+    "billing_country",
+
+    "shipping_address_line_1",
+    "shipping_address_line_2",
+    "shipping_city",
+    "shipping_state",
+    "shipping_postal_code",
+    "shipping_country",
+
+    "company_name",
+    "legal_business_name",
+    "display_name",
+    "company_code",
+
+    "company_type",
+    "industry",
+    "sub_industry",
+    "business_category",
+    "business_type",
+    "ownership_type",
+
+    "employee_count",
+    "company_size",
+    "annual_revenue",
+    "year_established",
+
+    "parent_company",
+    "subsidiary_of",
+    "headquarters_location",
+    "branch_count",
+
+    "company_domain",
+    "linkedin_company_page",
+
+    "company_status",
+    "is_active",
+    "is_customer",
+    "is_partner",
+    "is_vendor",
+
+    "currency",
+    "tax_identifier",
+    "vat_number",
+    "credit_limit",
+    "payment_terms",
+
+    "account_manager",
+    "account_owner",
+    "sales_team",
+    "business_unit",
+
+    "company_description",
+    "company_summary",
+
+    "customer_since",
+    "account_created_at",
+    "account_updated_at",
+
+        "lead_id",
+    "lead_name",
+    "lead_type",
+
+    "lead_status",
+    "lead_score",
+    "lead_rating",
+
+    "qualification_status",
+    "qualification_date",
+
+    "lead_owner",
+    "assigned_sales_rep",
+    "assigned_team",
+
+    "lead_source",
+    "lead_source_category",
+    "lead_source_detail",
+    "referral_source",
+
+    "converted_at",
+    "converted_by",
+    "converted_account",
+    "converted_contact",
+    "converted_opportunity",
+
+    "is_marketing_qualified",
+    "is_sales_qualified",
+    "is_converted",
+    "is_disqualified",
+
+    "disqualification_reason",
+    "loss_reason",
+
+    "lead_priority",
+    "urgency_level",
+
+    "next_follow_up",
+    "follow_up_status",
+    "follow_up_owner",
+
+    "first_contacted_at",
+    "last_contacted_at",
+    "last_response_at",
+
+        "opportunity_id",
+    "opportunity_name",
+    "opportunity_type",
+
+    "pipeline_name",
+    "pipeline_stage",
+    "pipeline_position",
+    "sales_stage",
+    "forecast_category",
+
+    "deal_value",
+    "expected_revenue",
+    "estimated_revenue",
+    "weighted_revenue",
+    "currency_code",
+
+    "win_probability",
+    "confidence_score",
+
+    "expected_close_date",
+    "actual_close_date",
+
+    "opportunity_created_at",
+    "opportunity_updated_at",
+
+    "opportunity_owner",
+    "sales_manager",
+    "sales_region_manager",
+
+    "deal_status",
+    "deal_outcome",
+    "win_loss_status",
+    "win_reason",
+
+    "contract_value",
+    "contract_start_date",
+    "contract_end_date",
+    "contract_term_months",
+    "renewal_date",
+
+    "primary_product",
+    "product_category",
+    "product_quantity",
+    "discount_percentage",
+    "discount_amount",
+
+    "primary_competitor",
+    "competitor_outcome",
+
+        "activity_id",
+    "activity_type",
+    "activity_subject",
+    "activity_status",
+    "activity_priority",
+
+    "last_email_sent_at",
+    "last_email_received_at",
+    "last_email_opened_at",
+    "email_count",
+    "emails_sent",
+    "emails_received",
+
+    "last_call_at",
+    "call_count",
+    "outbound_calls",
+    "inbound_calls",
+    "call_duration_minutes",
+
+    "last_meeting_at",
+    "next_meeting_at",
+    "meeting_count",
+    "meeting_outcome",
+
+    "task_count",
+    "open_tasks",
+    "completed_tasks",
+    "overdue_tasks",
+    "next_task_due_at",
+
+    "note_count",
+    "last_note_at",
+
+    "last_activity_type",
+    "last_activity_at",
+    "last_engagement_at",
+    "engagement_score",
+
+    "response_time_hours",
+    "average_response_time",
+    "first_response_at",
+
+    "next_activity_at",
+    "next_activity_type",
+    "follow_up_due_at",
+
+    "activity_owner",
+    "last_modified_by",
+
+        "campaign_id",
+    "campaign_name",
+    "campaign_type",
+    "campaign_status",
+    "campaign_owner",
+
+    "acquisition_source",
+    "acquisition_channel",
+    "acquisition_medium",
+
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "utm_term",
+    "utm_content",
+
+    "referrer_name",
+    "referrer_type",
+    "partner_name",
+    "affiliate_id",
+
+    "marketing_score",
+    "engagement_level",
+    "campaign_response",
+    "campaign_response_date",
+
+    "marketing_segment",
+    "persona",
+    "buyer_journey_stage",
+
+    "advertising_platform",
+    "ad_campaign_name",
+    "ad_group_name",
+    "keyword",
+
+    "landing_page",
+    "first_visit_date",
+    "last_visit_date",
+    "session_count",
+
+    "consent_status",
+    "consent_date",
+    "privacy_policy_version",
+
+        "customer_lifecycle_status",
+    "customer_segment",
+    "account_health",
+
+    "onboarding_status",
+    "onboarding_start_date",
+    "onboarding_completion_date",
+    "implementation_owner",
+
+    "health_score",
+    "health_status",
+    "churn_risk",
+    "expansion_potential",
+
+    "renewal_status",
+    "renewal_owner",
+    "renewal_probability",
+    "renewal_value",
+
+    "support_ticket_count",
+    "open_ticket_count",
+    "closed_ticket_count",
+
+    "last_ticket_created_at",
+    "last_ticket_closed_at",
+
+    "sla_status",
+    "sla_response_time",
+    "sla_resolution_time",
+
+    "customer_satisfaction_score",
+    "net_promoter_score",
+    "customer_effort_score",
+
+    "escalation_status",
+    "escalation_level",
+    "last_escalated_at",
+
+    "retention_status",
+    "last_renewal_date",
+    "next_renewal_date",
+    "cancellation_reason",
+
+    "customer_success_manager",
+    "support_owner",
+    "technical_account_manager",
+
+        "record_id",
+    "record_type",
+    "record_status",
+    "record_version",
+
+    "record_owner",
+    "record_created_by",
+    "record_updated_by",
+
+    "deleted_at",
+    "archived_at",
+    "last_synced_at",
+    "last_modified_at",
+
+    "import_batch_id",
+    "import_source",
+    "imported_at",
+
+    "external_system",
+    "external_system_id",
+    "sync_status",
+    "sync_error",
+
+    "duplicate_status",
+    "duplicate_group",
+    "verification_status",
+    "verification_date",
+
+    "is_deleted",
+    "is_archived",
+    "is_locked",
+
+    "visibility_level",
+    "access_role",
+    "owner_team",
+
+    "source_system",
+    "source_file",
+    "integration_name",
+    "integration_version"
   ]
 }
