@@ -8,7 +8,8 @@ This module serves as a Composition Root for the recovery pipeline.
 """
 
 # IMPORTS
-from backend.core.config import SCHEMA_PATH, load_rule_mappings
+from pathlib import Path
+from backend.core.config import load_rule_mappings
 from backend.domain.schema.schema_loader import CanonicalSchemaLoader
 from backend.services.recovery_engine.recovery_matcher import RecoveryMatcher
 from backend.services.recovery_engine.rule_matcher import RuleMatcher
@@ -23,6 +24,11 @@ from backend.services.recovery_engine.rule_mapping_utils import (
 
 # TEMPORARY CONFIGURATION (TO BE MOVED INTO config.py LATER)
 DEFAULT_FUZZY_CONFIDENCE_THRESHOLD = 85.0
+
+# LOAD SCHEMA
+CANONICAL_SCHEMA_PATH = Path(
+    "backend/resources/schemas/expected_schema.json"
+)
 
 # LOAD RULE MAPPINGS
 rule_mappings = load_rule_mappings()
@@ -58,7 +64,7 @@ class RecoveryEngineFactory:
         """
 
         schema_loader = CanonicalSchemaLoader(
-            schema_path=SCHEMA_PATH
+            schema_path=CANONICAL_SCHEMA_PATH
         )
 
         canonical_schema = schema_loader.load()
