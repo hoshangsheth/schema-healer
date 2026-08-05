@@ -53,7 +53,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Location of the expected schema definition.
 SCHEMA_PATH = (
-    BASE_DIR/"resources"/"schemas"/"schema.json"
+    BASE_DIR/"resources"/"schemas"/"expected_schema.json"
 )
 
 # Location of the rule-based mappings.
@@ -100,6 +100,20 @@ except ValueError as exc:
         "LLM_MAX_RETRIES must be a valid integer."
     ) from exc
 
+
+
+# API configuration
+# Browser origins permitted to call the API.
+# Supplied as a comma-separated list so local and staging frontends can
+# be configured without a code change.
+CORS_ALLOWED_ORIGINS = [
+    origin.strip()
+    for origin in _get_env(
+        "CORS_ALLOWED_ORIGINS",
+        "http://localhost:3000"
+    ).split(",")
+    if origin.strip()
+]
 
 
 # Schema configuration

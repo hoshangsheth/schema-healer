@@ -1,26 +1,111 @@
 @import "tailwindcss";
 
+/*
+ * SchemaHealer design tokens.
+ *
+ * The product surface is a light, high-contrast B2B application. The
+ * palette is pinned rather than following the OS colour scheme so the
+ * status colours (green / red / violet) keep their intended meaning.
+ */
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0b0d17;
+
+  /* Brand — violet */
+  --brand-50: #f5f3ff;
+  --brand-100: #ede9fe;
+  --brand-200: #ddd6fe;
+  --brand-300: #c4b5fd;
+  --brand-400: #a78bfa;
+  --brand-500: #8b5cf6;
+  --brand-600: #7c3aed;
+  --brand-700: #6d28d9;
+
+  /* Neutrals */
+  --ink-900: #0b0d17;
+  --ink-700: #2c3040;
+  --ink-500: #5b6072;
+  --ink-400: #7c8195;
+  --ink-200: #e5e7ef;
+  --ink-100: #f1f2f7;
+  --ink-50: #f8f9fc;
+
+  /* Status */
+  --success-50: #ecfdf5;
+  --success-200: #a7f3d0;
+  --success-600: #059669;
+  --success-700: #047857;
+
+  --danger-50: #fef2f2;
+  --danger-200: #fecaca;
+  --danger-600: #dc2626;
+  --danger-700: #b91c1c;
+
+  --warning-50: #fffbeb;
+  --warning-200: #fde68a;
+  --warning-700: #b45309;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  --color-brand-50: var(--brand-50);
+  --color-brand-100: var(--brand-100);
+  --color-brand-200: var(--brand-200);
+  --color-brand-300: var(--brand-300);
+  --color-brand-400: var(--brand-400);
+  --color-brand-500: var(--brand-500);
+  --color-brand-600: var(--brand-600);
+  --color-brand-700: var(--brand-700);
+
+  --color-ink-900: var(--ink-900);
+  --color-ink-700: var(--ink-700);
+  --color-ink-500: var(--ink-500);
+  --color-ink-400: var(--ink-400);
+  --color-ink-200: var(--ink-200);
+  --color-ink-100: var(--ink-100);
+  --color-ink-50: var(--ink-50);
+
+  --color-success-50: var(--success-50);
+  --color-success-200: var(--success-200);
+  --color-success-600: var(--success-600);
+  --color-success-700: var(--success-700);
+
+  --color-danger-50: var(--danger-50);
+  --color-danger-200: var(--danger-200);
+  --color-danger-600: var(--danger-600);
+  --color-danger-700: var(--danger-700);
+
+  --color-warning-50: var(--warning-50);
+  --color-warning-200: var(--warning-200);
+  --color-warning-700: var(--warning-700);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Anchor navigation should not slide targets under the sticky header. */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* A single, consistent focus treatment across links and controls. */
+:focus-visible {
+  outline: 2px solid var(--brand-600);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
