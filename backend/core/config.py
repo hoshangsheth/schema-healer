@@ -74,7 +74,7 @@ LLM_MODEL_NAME = _get_env(
     "gemini-3.6-flash"
 )
 
-# Maximum request timeout (seconds).
+# Maximum LLM request timeout in seconds.
 try:
     LLM_REQUEST_TIMEOUT = int(
         _get_env(
@@ -86,20 +86,6 @@ except ValueError as exc:
     raise ValueError(
         "LLM_REQUEST_TIMEOUT must be a valid integer."
     ) from exc
-
-# Maximum retry attempts.
-try:
-    LLM_MAX_RETRIES = int(
-        _get_env(
-            "LLM_MAX_RETRIES",
-            "3"
-        )
-    )
-except ValueError as exc:
-    raise ValueError(
-        "LLM_MAX_RETRIES must be a valid integer."
-    ) from exc
-
 
 
 # Schema configuration

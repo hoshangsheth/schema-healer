@@ -12,8 +12,13 @@ perform prompt formatting, provider communication, or response
 parsing.
 """
 
+# IMPORTS
+import logging
+
 from backend.services.recovery_engine.recovery_matcher import RecoveryMatcher
 from backend.domain.schema.canonical_schema import CanonicalSchema
+
+from backend.exceptions.llm_exceptions import LLMGenerationError
 
 from backend.models.schema_mapping_models import (
     MappingStatus,
@@ -28,6 +33,9 @@ from backend.services.recovery_engine.prompt_builder import PromptBuilder
 from backend.infrastructure.llm.semantic_client import (
     generate_semantic_matches
 )
+
+# MODULE LOGGER
+logger = logging.getLogger(__name__)
 
 class SemanticMatcher(RecoveryMatcher):
     """
@@ -86,9 +94,21 @@ class SemanticMatcher(RecoveryMatcher):
             mappings=pending_mappings
         )
 
-        semantic_result = generate_semantic_matches(
-            prompt=prompt
-        )
+        logger.info("Starting semantic recovery.")
+        try:
+            semantic_result = generate_semantic_matches(
+                prompt=prompt
+            )
+
+        except LLMGenerationError:
+            logger.warning(
+                "Semantic recovery unavailable. Continuing with rule and fuzzy recovery only."
+            )
+            # Semantic recovery is unavailable.
+            # Leave unresolved mappings in their original PENDING state
+            # and continue the recovery pipeline.
+            return
+        logger.info("Semantic recovery completed successfully.")
 
         self._apply_matches(
             mappings=pending_mappings,

@@ -4,9 +4,9 @@ LLM provider.
 
 Responsibilities:
 - Create and reuse the provider client
+- Configure provider communication
 - Send requests to the provider
 - Parse structured responses
-- Retry transient failures
 - Translate provider exceptions into application exceptions
 """
 
@@ -20,14 +20,14 @@ from threading import Lock
 from google import genai                                             # SDK from google
 from google.genai.types import (
     GenerateContentConfig,
-    GenerateContentResponse
+    GenerateContentResponse,
+    HttpOptions
 )
 
 # Project imports                                                       # Configuration
 from backend.core.config import (
     GEMINI_API_KEY,
     LLM_MODEL_NAME,
-    LLM_MAX_RETRIES,
     LLM_REQUEST_TIMEOUT
 )
 
@@ -72,17 +72,23 @@ def _get_client() -> genai.Client:
                 # Create the shared Gemini client once and reuse it
                 # throughout the application's lifetime.
                 _client = genai.Client(
-                    api_key=GEMINI_API_KEY
+                    api_key=GEMINI_API_KEY,
+                    http_options=HttpOptions(
+                    timeout=LLM_REQUEST_TIMEOUT * 1000,
+                    )
                 )
 
             except Exception as exc:
                 # Log the complete traceback for debugging.
-                logger.exception("Failed to initialize Gemini client.")
+                logger.warning(
+                    "Semantic provider request failed: %s",
+                    exc,
+                )
 
                 # Raises an application-specific exception while preserving
                 # the original exception as the cause.
                 raise LLMGenerationError(
-                    "Unable to initialize Gemini client."
+                    "Failed to generate content from the configured LLM provider."
                 ) from exc
             
         # Return the shared client whether it was just created
@@ -120,18 +126,20 @@ def generate_json_response(
     start_time = time.perf_counter()
 
     try:
-        # Send the generation request to the configured LLM provider
         response = client.models.generate_content(
             model=LLM_MODEL_NAME,
             contents=request.user_prompt,
-            config=config
+            config=config,
         )
 
-        # Calculate the total time taken by LLM request in milliseconds.
-        latency_ms = (time.perf_counter() - start_time) * 1000
+        latency_ms = (
+            time.perf_counter() - start_time
+        ) * 1000
 
     except Exception as exc:
-        logger.exception("Failed to generate content from Gemini.")
+        logger.exception(
+            "Failed to generate content from Gemini."
+        )
 
         raise LLMGenerationError(
             "Failed to generate content from the configured LLM provider."
