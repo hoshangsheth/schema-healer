@@ -6,7 +6,7 @@
 
 # Project Status
 
-**Current Stage:** Phase 1 – Vertical Slice 5 Complete
+**Current Stage:** Phase 1 - Vertical Slice 5 Complete
 
 SchemaHealer is a production-oriented backend service that automatically detects schema drift in uploaded CSV files, recovers recoverable schema mismatches through a hybrid recovery engine, verifies the recovered dataset, generates a healing report, and exports the best recoverable dataset while preserving all original data.
 
@@ -20,7 +20,7 @@ SchemaHealer is a production-oriented backend service that automatically detects
 - Technical Foundation
 - Stage 0 Development Environment Setup
 
-## Phase 1 – Backend Core
+## Phase 1 - Backend Core
 
 ### Vertical Slice 1
 
@@ -128,12 +128,17 @@ SchemaHealer is a production-oriented backend service that automatically detects
 - Provider-Agnostic LLM Client
 - Hybrid Recovery Engine
 
-## Frontend (Planned)
+## Frontend
 
+- Next.js 16 (App Router)
 - React 19
 - TypeScript
-- Vite
-- Tailwind CSS
+- Tailwind CSS v4
+- Framer Motion
+- TanStack Query
+
+See [`frontend/README.md`](frontend/README.md) for setup, environment
+configuration and frontend architecture notes.
 
 ---
 
@@ -263,13 +268,12 @@ This ensures that temporary AI provider failures never prevent successful rule-b
 - Vertical Slice 3
 - Vertical Slice 4
 - Vertical Slice 5
+- Frontend: marketing site and recovery workspace
 
 ## Upcoming
 
 ### Phase 2
 
-- React Frontend
-- Interactive Recovery Dashboard
 - Manual Mapping Workflow
 - Recovery Audit History
 - Authentication & User Management

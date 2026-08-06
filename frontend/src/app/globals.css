@@ -1,26 +1,270 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* --------------------------------------------------------------------------
+   SchemaHealer design tokens
+
+   The product is a reliability tool, so the palette is deliberately calm:
+   a violet-indigo brand for intent, a teal "verified" accent for trust
+   signals, and semantic colours reserved exclusively for state.
+   -------------------------------------------------------------------------- */
+
+@theme {
+  --color-canvas: #fbfbfe;
+  --color-surface: #ffffff;
+  --color-surface-2: #f6f7fb;
+  --color-surface-3: #eef0f7;
+
+  --color-line: #e8e9f2;
+  --color-line-strong: #d5d8e6;
+
+  --color-ink-900: #0a0d1c;
+  --color-ink-800: #191d33;
+  --color-ink-700: #2f3450;
+  --color-ink-600: #4a5070;
+  --color-ink-500: #666d8c;
+  --color-ink-400: #8c92ac;
+  --color-ink-300: #b0b5c9;
+
+  --color-brand-50: #f2effe;
+  --color-brand-100: #e5defd;
+  --color-brand-200: #cec1fb;
+  --color-brand-300: #b09bf8;
+  --color-brand-400: #8e70f4;
+  --color-brand-500: #6d4aef;
+  --color-brand-600: #5b37e0;
+  --color-brand-700: #4a2cc0;
+  --color-brand-800: #3a2296;
+  --color-brand-900: #2b1a6e;
+
+  --color-teal-50: #e7faf7;
+  --color-teal-100: #c8f3ec;
+  --color-teal-400: #2bc9b8;
+  --color-teal-500: #0fb5a6;
+  --color-teal-600: #0a9184;
+  --color-teal-700: #0b7369;
+
+  --color-success-50: #e8f7ee;
+  --color-success-100: #cbeeda;
+  --color-success-500: #12a65c;
+  --color-success-600: #0d8549;
+  --color-success-700: #0b6a3b;
+
+  --color-warn-50: #fdf4e3;
+  --color-warn-100: #fae7c2;
+  --color-warn-500: #d98a0b;
+  --color-warn-600: #b06f08;
+  --color-warn-700: #8a5806;
+
+  --color-danger-50: #fdedf0;
+  --color-danger-100: #fbd7dd;
+  --color-danger-500: #dc2b4b;
+  --color-danger-600: #bb1e3b;
+  --color-danger-700: #96182f;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+
+  --radius-card: 1rem;
+  --radius-panel: 1.5rem;
+
+  --shadow-soft: 0 1px 2px rgb(10 13 28 / 0.04), 0 4px 16px -6px rgb(10 13 28 / 0.08);
+  --shadow-lift: 0 2px 4px rgb(10 13 28 / 0.04), 0 18px 40px -18px rgb(10 13 28 / 0.22);
+  --shadow-panel: 0 1px 2px rgb(10 13 28 / 0.03), 0 32px 64px -32px rgb(10 13 28 / 0.28);
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
 
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    color-scheme: light;
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+
+  html,
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink-800);
+  }
+
+  body {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Touch devices: stop iOS inflating text, and remove the tap flash so
+     custom press states are the only feedback. */
+  @media (hover: none) {
+    html {
+      -webkit-text-size-adjust: 100%;
+    }
+
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+  }
+
+  /* iOS zooms any field whose text is under 16px when it gains focus. */
+  @media (max-width: 767px) {
+    input,
+    select,
+    textarea {
+      font-size: 1rem;
+    }
+  }
+
+  /* Room for the pinned action bar on touch screens. */
+  @media (max-width: 1023px) {
+    body.has-sticky-bar {
+      padding-bottom: 5.5rem;
+    }
+  }
+
+  ::selection {
+    background-color: var(--color-brand-100);
+    color: var(--color-brand-900);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 2px;
+    border-radius: 0.375rem;
+  }
+
+  /* Respect the user's motion preference everywhere, including for the
+     scroll-linked and looping background effects. */
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* --------------------------------------------------------------------------
+   Utilities
+   -------------------------------------------------------------------------- */
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility text-pretty {
+  text-wrap: pretty;
+}
+
+/* Faint dotted grid used behind hero and section backdrops. */
+@utility bg-dot-grid {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    color-mix(in oklab, var(--color-ink-300) 55%, transparent) 1px,
+    transparent 0
+  );
+  background-size: 28px 28px;
+}
+
+@utility glass-panel {
+  background-color: color-mix(in oklab, var(--color-surface) 76%, transparent);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+}
+
+/* Gradient rule used to separate marketing sections without a hard line. */
+@utility rule-fade {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-line-strong),
+    transparent
+  );
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(3%, -4%, 0) scale(1.06);
+  }
+  66% {
+    transform: translate3d(-3%, 3%, 0) scale(0.96);
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+  70% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@utility animate-drift {
+  animation: drift 22s var(--ease-out-quint) infinite;
+}
+
+@utility animate-shimmer {
+  animation: shimmer 1.6s infinite;
+}
+
+@utility animate-pulse-ring {
+  animation: pulse-ring 2.4s ease-out infinite;
+}
+
+/* Swipe rails hide their scrollbar; the dots communicate position instead. */
+@utility scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Scrollbars inside data-dense panels. */
+@utility scrollbar-slim {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line-strong) transparent;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-line-strong);
+    border: 3px solid transparent;
+    background-clip: content-box;
+    border-radius: 999px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
 }
