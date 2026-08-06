@@ -29,7 +29,13 @@ from backend.exceptions.processing_exceptions import (
     InvalidFileTypeError
 )
 
-from backend.models.schema_processing_models import SchemaProcessingResult
+from backend.api.models.schema_processing_response import (
+    SchemaProcessingResponse
+)
+from backend.api.builders.schema_processing_response_builder import (
+    SchemaProcessingResponseBuilder
+)
+
 from backend.services.schema_processing_service import (
     process_uploaded_schema
 )
@@ -44,11 +50,11 @@ router = APIRouter(
 # API Endpoint : Schema Validation
 @router.post(
     "/validate",
-    response_model=SchemaProcessingResult
+    response_model=SchemaProcessingResponse
 )
 async def validate_schema_endpoint(
     file: UploadFile = File(...)
-) -> SchemaProcessingResult:
+) -> SchemaProcessingResponse:
     """
     Process an uploaded CSV schema.
 
@@ -59,9 +65,9 @@ async def validate_schema_endpoint(
 
     Returns
     -------
-    SchemaProcessingResult
-        Complete schema processing result including recovered mappings
-        and validation outcome.
+    SchemaProcessingResponse
+        Public API response containing the user-facing schema processing
+        results.
 
     Raises
     ------
@@ -70,7 +76,11 @@ async def validate_schema_endpoint(
     """
 
     try:
-        return process_uploaded_schema(file)
+        processing_result = process_uploaded_schema(file)
+
+        response_builder = SchemaProcessingResponseBuilder()
+
+        return response_builder.build(processing_result)
 
     except InvalidFileTypeError as exc:
         raise HTTPException(

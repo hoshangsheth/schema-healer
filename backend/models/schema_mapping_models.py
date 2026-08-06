@@ -23,8 +23,6 @@ class MappingStatus(str, Enum):
 
     PENDING = "pending"
     RESOLVED = "resolved"
-    UNRECOGNIZED = "unrecognized"
-
 
 # RECOVERY METHOD
 class RecoveryMethod(str, Enum):

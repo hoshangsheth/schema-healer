@@ -7,18 +7,25 @@ mappings, and returning the final processing result.
 """
 
 
-# IMPORTS
+# Standard library
 from io import StringIO
 import csv
 
+# Exceptions
 from backend.exceptions.processing_exceptions import (
     EmptyFileError,
     InvalidFileTypeError,
 )
+
+# Models
 from backend.models.schema_processing_models import SchemaProcessingResult
-from backend.services.recovery_engine.recovery_engine_factory import (
-    RecoveryEngineFactory)
+from backend.services.recovery_engine.recovery_engine_factory import RecoveryEngineFactory
 from backend.validators.schema_validator import validate_schema
+
+# Services
+from backend.reports.builders.healing_report_builder import HealingReportBuilder
+from backend.services.dataframe.recovered_dataframe_builder import RecoveredDataFrameBuilder
+from backend.services.verification.verification_service import VerificationService
 
 
 # PROCESS UPLOADED SCHEMA
@@ -36,10 +43,10 @@ def process_uploaded_schema(file) -> SchemaProcessingResult:
     SchemaProcessingResult:
         Complete processing outcome.
     """
-
+    
     filename = file.filename.strip().lower()
 
-    # Check if its a valid CSV  (Guard Clause)
+    # Guard against unsupported file types.
     if not filename.endswith(".csv"):
         raise InvalidFileTypeError(
             "Only CSV files are supported."
@@ -65,16 +72,27 @@ def process_uploaded_schema(file) -> SchemaProcessingResult:
     # Read the stream
     csv_reader = csv.reader(csv_stream, dialect)
 
-    # Extract header rows
-    header_row = next(csv_reader, None)
+    # Materialize the uploaded dataset.
+    rows = list(csv_reader)
 
-    # Check if iteration comes across empty row
-    if header_row is None:
+    # Guard against an empty CSV file.
+    if (
+        not rows
+        or not rows[0]
+        or not any(
+            header.strip()
+            for header in rows[0]
+        )
+    ):
         raise EmptyFileError(
             "Uploaded CSV file is empty."
         )
 
-    # Create pipeline
+    # Separate the header row from the dataset.
+    header_row = rows[0]
+    data_rows = rows[1:]
+
+    # Create the recovery pipeline.
     recovery_engine = RecoveryEngineFactory.create()
 
     # Recover schema
@@ -83,8 +101,36 @@ def process_uploaded_schema(file) -> SchemaProcessingResult:
     # Validate the result
     validation_result = validate_schema(mappings)
 
+    # Build the recovered dataset.
+    recovered_dataframe_builder = RecoveredDataFrameBuilder()
+
+    recovered_dataframe = recovered_dataframe_builder.build(
+        header_row=header_row,
+        data_rows=data_rows,
+        mappings=mappings
+    )
+
+    # Verify the recovered dataset.
+    verification_service = VerificationService()
+
+    verification_result = verification_service.verify(
+        recovered_dataframe=recovered_dataframe,
+        mappings=mappings
+    )
+
+    # Build the Healing Report.
+    healing_report_builder = HealingReportBuilder()
+
+    healing_report = healing_report_builder.build(
+        mappings=mappings,
+        verification_result=verification_result,
+    )
+
     # Return
     return SchemaProcessingResult(
         mappings=mappings,
-        validation_result=validation_result
+        validation_result=validation_result,
+        recovered_dataframe=recovered_dataframe,
+        verification_result=verification_result,
+        healing_report=healing_report,
     )

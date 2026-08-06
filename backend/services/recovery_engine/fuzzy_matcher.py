@@ -94,13 +94,13 @@ class FuzzyMatcher(RecoveryMatcher):
 
             canonical_field = self._alias_lookup[matched_alias]
 
-            print("\n" + "=" * 80)
-            print(f"[FUZZY] Source Header    : {mapping.source_header}")
-            print(f"[FUZZY] Normalized      : {mapping.normalized_source_header}")
-            print(f"[FUZZY] Matched Alias   : {matched_alias}")
-            print(f"[FUZZY] Canonical Field : {canonical_field}")
-            print(f"[FUZZY] Similarity      : {confidence_score:.2f}")
-            print(f"[FUZZY] Threshold       : {self._confidence_threshold}")
+            # print("\n" + "=" * 80)
+            # print(f"[FUZZY] Source Header    : {mapping.source_header}")
+            # print(f"[FUZZY] Normalized      : {mapping.normalized_source_header}")
+            # print(f"[FUZZY] Matched Alias   : {matched_alias}")
+            # print(f"[FUZZY] Canonical Field : {canonical_field}")
+            # print(f"[FUZZY] Similarity      : {confidence_score:.2f}")
+            # print(f"[FUZZY] Threshold       : {self._confidence_threshold}")
 
             # Reject matches below the configured threshold.
             if confidence_score < self._confidence_threshold:
@@ -114,7 +114,7 @@ class FuzzyMatcher(RecoveryMatcher):
             # Remove the matched canonical field to enforce a
             # one-to-one mapping.
             aliases_to_remove = self._canonical_alias_lookup[canonical_field]
-            print(f"[FUZZY] Removing Aliases: {aliases_to_remove}")
+            # print(f"[FUZZY] Removing Aliases: {aliases_to_remove}")
 
             for alias in aliases_to_remove:
                 if alias in available_aliases:
