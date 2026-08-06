@@ -15,13 +15,23 @@ Business logic belongs to the application service.
 
 # IMPORTS
 
+from io import BytesIO
+from typing import Literal, Union
+
 # FastAPI endpoint that connects HTTP Request to JSON Response
 from fastapi import (
     APIRouter,
     File,
     HTTPException,
+    Query,
     UploadFile,
     status
+)
+
+from fastapi.responses import StreamingResponse
+
+from backend.services.export.recovered_csv_exporter import (
+    RecoveredCsvExporter
 )
 
 from backend.exceptions.processing_exceptions import (
@@ -53,8 +63,15 @@ router = APIRouter(
     response_model=SchemaProcessingResponse
 )
 async def validate_schema_endpoint(
-    file: UploadFile = File(...)
-) -> SchemaProcessingResponse:
+    file: UploadFile = File(...),
+    output: Literal["json", "csv"] = Query(
+        default="json",
+        description="Select the response format.",
+    ),
+) -> Union[
+        SchemaProcessingResponse,
+        StreamingResponse,
+    ]:
     """
     Process an uploaded CSV schema.
 
@@ -65,9 +82,11 @@ async def validate_schema_endpoint(
 
     Returns
     -------
-    SchemaProcessingResponse
-        Public API response containing the user-facing schema processing
-        results.
+    Union[SchemaProcessingResponse, StreamingResponse]
+
+    Returns either the schema processing results as JSON or the
+    recovered dataset as a downloadable CSV depending on the selected
+    output format.
 
     Raises
     ------
@@ -80,7 +99,29 @@ async def validate_schema_endpoint(
 
         response_builder = SchemaProcessingResponseBuilder()
 
-        return response_builder.build(processing_result)
+        csv_exporter = RecoveredCsvExporter()
+
+        # Return the recovered dataset as a downloadable CSV.
+        if output == "csv":
+
+            csv_bytes = csv_exporter.export(
+                processing_result.recovered_dataframe
+            )
+
+            return StreamingResponse(
+                content=BytesIO(csv_bytes),
+                media_type="text/csv",
+                headers={
+                    "Content-Disposition": (
+                        'attachment; filename="recovered_dataset.csv"'
+                    )
+                },
+            )
+
+        # Return the schema processing results as JSON.
+        return response_builder.build(
+            processing_result
+        )
 
     except InvalidFileTypeError as exc:
         raise HTTPException(

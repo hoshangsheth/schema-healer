@@ -167,8 +167,8 @@ class VerificationService:
                 type=VerificationType.MISSING_REQUIRED_COLUMNS,
                 affected_columns=missing_columns,
                 message=(
-                    "The recovered dataset is missing one or more required "
-                    "canonical columns."
+                    "The recovered dataset is missing one or more recovered columns "
+                    "that were expected after schema recovery."
                 ),
             )
         )
@@ -218,7 +218,7 @@ class VerificationService:
                 affected_columns=unresolved_columns,
                 message=(
                     "One or more uploaded columns could not be matched automatically "
-                    "and require manual mapping."
+                    "and require manual review."
                 ),
             )
         )
@@ -267,8 +267,8 @@ class VerificationService:
                 type=VerificationType.DUPLICATE_COLUMNS,
                 affected_columns=duplicate_columns,
                 message=(
-                    "The recovered dataset contains duplicate canonical "
-                    "column names."
+                    "Multiple uploaded columns were recovered to the same canonical field "
+                    "and require manual review."
                 ),
             )
         )

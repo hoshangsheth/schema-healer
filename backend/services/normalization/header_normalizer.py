@@ -21,6 +21,9 @@ def normalize_header(header: str) -> str:
         Normalized header suitable for recovery matching.
     """
 
+    # Remove a UTF-8 Byte Order Mark (BOM) if present.
+    header = header.lstrip("\ufeff")
+
     return (
         header.strip()
         .lower()
