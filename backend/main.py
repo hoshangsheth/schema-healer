@@ -3,6 +3,7 @@ from fastapi import FastAPI
 
 # Import API Routers:
 from backend.api.schema_validation import router as schema_validation_router
+from backend.api.health import router as health_router
 
 # Create FastAPI Application:
 app = FastAPI(
@@ -14,4 +15,8 @@ app = FastAPI(
 # Register API Routers:
 app.include_router(
     schema_validation_router
+)
+
+app.include_router(
+    health_router
 )
