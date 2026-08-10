@@ -11,9 +11,13 @@ mappings, and returning the final processing result.
 from io import StringIO
 import csv
 
+# Configuration
+from backend.core.config import MAX_UPLOAD_SIZE_BYTES
+
 # Exceptions
 from backend.exceptions.processing_exceptions import (
     EmptyFileError,
+    FileTooLargeError,
     InvalidFileTypeError,
 )
 
@@ -52,8 +56,18 @@ def process_uploaded_schema(file) -> SchemaProcessingResult:
             "Only CSV files are supported."
         )
     
+    # Read the raw upload before decoding so oversized files are rejected
+    # without materializing further pipeline state.
+    raw_bytes = file.file.read()
+
+    if len(raw_bytes) > MAX_UPLOAD_SIZE_BYTES:
+        raise FileTooLargeError(
+            "Uploaded file exceeds the maximum allowed size of "
+            f"{MAX_UPLOAD_SIZE_BYTES // (1024 * 1024)} MB."
+        )
+
     # Decode
-    contents = file.file.read().decode("utf-8")
+    contents = raw_bytes.decode("utf-8")
     # Stream
     csv_stream = StringIO(contents)
 

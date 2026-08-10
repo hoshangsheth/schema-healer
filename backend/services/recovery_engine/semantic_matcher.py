@@ -19,6 +19,7 @@ from backend.services.recovery_engine.recovery_matcher import RecoveryMatcher
 from backend.domain.schema.canonical_schema import CanonicalSchema
 
 from backend.exceptions.llm_exceptions import LLMGenerationError
+from backend.exceptions.semantic_exceptions import SemanticResponseError
 
 from backend.models.schema_mapping_models import (
     MappingStatus,
@@ -107,6 +108,18 @@ class SemanticMatcher(RecoveryMatcher):
             # Semantic recovery is unavailable.
             # Leave unresolved mappings in their original PENDING state
             # and continue the recovery pipeline.
+            return
+
+        except SemanticResponseError as exc:
+            logger.warning(
+                "Semantic recovery returned an invalid response: %s. "
+                "Continuing with rule and fuzzy recovery only.",
+                exc,
+            )
+            # The LLM responded, but its output violated the expected
+            # contract. Treat this the same as an unavailable provider:
+            # leave unresolved mappings PENDING and continue the pipeline
+            # instead of failing the whole request.
             return
         logger.info("Semantic recovery completed successfully.")
 

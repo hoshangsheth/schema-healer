@@ -29,6 +29,7 @@ from fastapi import (
 )
 
 from fastapi.responses import StreamingResponse
+from starlette.concurrency import run_in_threadpool
 
 from backend.services.export.recovered_csv_exporter import (
     RecoveredCsvExporter
@@ -36,6 +37,7 @@ from backend.services.export.recovered_csv_exporter import (
 
 from backend.exceptions.processing_exceptions import (
     EmptyFileError,
+    FileTooLargeError,
     InvalidFileTypeError
 )
 
@@ -95,7 +97,13 @@ async def validate_schema_endpoint(
     """
 
     try:
-        processing_result = process_uploaded_schema(file)
+        # process_uploaded_schema is synchronous and, via the semantic
+        # recovery tier, performs a blocking LLM call. Running it directly
+        # inside this async route would block the event loop for the
+        # duration of that call. Offload it to a worker thread instead.
+        processing_result = await run_in_threadpool(
+            process_uploaded_schema, file
+        )
 
         response_builder = SchemaProcessingResponseBuilder()
 
@@ -132,5 +140,11 @@ async def validate_schema_endpoint(
     except EmptyFileError as exc:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(exc),
+        )
+
+    except FileTooLargeError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
             detail=str(exc),
         )

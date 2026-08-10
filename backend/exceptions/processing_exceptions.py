@@ -6,3 +6,7 @@ class InvalidFileTypeError(Exception):
 class EmptyFileError(Exception):
     """Raised when the uploaded CSV contains no header row."""
     pass
+
+class FileTooLargeError(Exception):
+    """Raised when the uploaded file exceeds the configured size limit."""
+    pass

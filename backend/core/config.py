@@ -88,6 +88,25 @@ except ValueError as exc:
     ) from exc
 
 
+# Upload configuration
+# Maximum accepted size, in bytes, for an uploaded CSV file.
+# Default matches the frontend's default guard (frontend/src/utils/file.ts,
+# NEXT_PUBLIC_MAX_UPLOAD_MB, 50 MB) so the backend does not reject files the
+# frontend already accepted as valid; the backend was previously the only
+# unguarded entry point for oversized uploads (e.g. a direct API caller).
+try:
+    MAX_UPLOAD_SIZE_BYTES = int(
+        _get_env(
+            "MAX_UPLOAD_SIZE_BYTES",
+            str(50 * 1024 * 1024)  # 50 MB
+        )
+    )
+except ValueError as exc:
+    raise ValueError(
+        "MAX_UPLOAD_SIZE_BYTES must be a valid integer."
+    ) from exc
+
+
 # Schema configuration
 # Loads the expected schema from disk.
 def load_expected_schema() -> list[str]:
