@@ -47,7 +47,7 @@ export function ProcessingPipeline({
             <p className="text-sm font-semibold tracking-[-0.01em] text-ink-900">
               Recovering your file
             </p>
-            <p className="font-mono text-xs text-ink-400">
+            <p className="font-mono text-xs break-all text-ink-400">
               {file.name} · {formatBytes(file.size)}
             </p>
           </div>

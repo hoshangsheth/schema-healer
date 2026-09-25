@@ -128,7 +128,7 @@ export function MappingTable({ response }: { response: SchemaProcessingResponse 
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Search columns"
             aria-label="Search columns"
-            className="h-9 w-full rounded-lg border border-line bg-surface-2 pl-8.5 pr-3 text-sm text-ink-800 placeholder:text-ink-400 transition-colors focus:border-brand-300 focus:bg-surface"
+            className="h-11 w-full rounded-lg lg:h-9 border border-line bg-surface-2 pl-8.5 pr-3 text-sm text-ink-800 placeholder:text-ink-400 transition-colors focus:border-brand-300 focus:bg-surface"
           />
         </label>
       </div>
@@ -142,7 +142,7 @@ export function MappingTable({ response }: { response: SchemaProcessingResponse 
       ) : (
         <>
           {/* Touch: cards that read top to bottom, no sideways scrolling. */}
-          <div className="max-h-[34rem] overflow-y-auto scrollbar-slim lg:hidden">
+          <div className="lg:hidden">
             <MappingCards mappings={visible} />
           </div>
 

@@ -75,12 +75,12 @@ function SchemaColumn({
         <p className="text-xs text-ink-400">{caption}</p>
       </div>
 
-      <ul className="flex max-h-64 flex-wrap gap-1.5 overflow-auto scrollbar-slim">
+      <ul className="flex flex-wrap gap-1.5 scrollbar-slim lg:max-h-64 lg:overflow-auto">
         {items.map((item, index) => (
           <li
             key={`${item.label}-${index}`}
             className={cn(
-              "rounded-md px-2 py-1 font-mono text-[0.6875rem]",
+              "max-w-full rounded-md px-2 py-1 font-mono text-xs break-all lg:text-[0.6875rem]",
               item.tone === "resolved" && "bg-success-50 text-success-700",
               item.tone === "warn" && "bg-warn-50 text-warn-700",
               item.tone === "muted" && "bg-surface-2 text-ink-500",

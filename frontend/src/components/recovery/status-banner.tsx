@@ -64,7 +64,7 @@ export function StatusBanner({
             )}
           </span>
 
-          <div className="space-y-1.5">
+          <div className="min-w-0 space-y-1.5">
             <h1
               className={cn(
                 "text-lg font-semibold tracking-[-0.02em] sm:text-xl",
@@ -76,7 +76,7 @@ export function StatusBanner({
             <p className="max-w-2xl text-sm leading-relaxed text-ink-600">
               {status.detail}
             </p>
-            <p className="font-mono text-xs text-ink-400">
+            <p className="font-mono text-xs break-all text-ink-400">
               {filename} · {formatPercent(recovery_rate)} recovered
             </p>
           </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import {
   ChevronLeft,
   ChevronRight,
@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 
 import { cn } from "@/lib/cn";
+import { useIsDesktop } from "@/hooks/use-media-query";
 import type { RecoveredDataset } from "@/services/schema-healer";
 import { Button } from "@/components/shared/button";
 import { Card, CardHeader } from "@/components/shared/card";
@@ -19,7 +20,9 @@ import { DatasetCards } from "@/components/preview/dataset-cards";
 import { formatCount, pluralize, truncate } from "@/utils/format";
 import { PREVIEW_ROW_LIMIT } from "@/utils/csv";
 
-const PAGE_SIZE = 25;
+const DESKTOP_PAGE_SIZE = 25;
+/** Record cards are tall, so phones page sooner to keep the pager reachable. */
+const MOBILE_PAGE_SIZE = 10;
 
 /**
  * Preview of the rebuilt file.
@@ -37,6 +40,9 @@ export function DatasetPreview({
 }) {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(0);
+  const isDesktop = useIsDesktop();
+  const pageSize = isDesktop ? DESKTOP_PAGE_SIZE : MOBILE_PAGE_SIZE;
+  const listTopRef = useRef<HTMLDivElement>(null);
   const { headers, rows, totalRows, truncated } = dataset.preview;
 
   const filtered = useMemo(() => {
@@ -45,9 +51,18 @@ export function DatasetPreview({
     return rows.filter((row) => row.some((cell) => cell.toLowerCase().includes(needle)));
   }, [rows, query]);
 
-  const pageCount = Math.max(Math.ceil(filtered.length / PAGE_SIZE), 1);
+  const pageCount = Math.max(Math.ceil(filtered.length / pageSize), 1);
   const safePage = Math.min(page, pageCount - 1);
-  const visible = filtered.slice(safePage * PAGE_SIZE, safePage * PAGE_SIZE + PAGE_SIZE);
+  const visible = filtered.slice(safePage * pageSize, safePage * pageSize + pageSize);
+
+  // The pager sits below a long stack of cards on a phone; bring the new page's
+  // first record into view instead of leaving the reader at its bottom.
+  const goToPage = (next: number) => {
+    setPage(next);
+    if (!isDesktop) {
+      listTopRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
 
   return (
     <Card>
@@ -68,6 +83,7 @@ export function DatasetPreview({
             size="sm"
             variant="secondary"
             onClick={onDownload}
+            className="hidden lg:inline-flex"
             leadingIcon={<Download className="size-3.5" aria-hidden />}
           >
             Download
@@ -91,7 +107,7 @@ export function DatasetPreview({
             }}
             placeholder="Search rows"
             aria-label="Search rows"
-            className="h-9 w-full rounded-lg border border-line bg-surface-2 pl-8.5 pr-3 text-sm text-ink-800 placeholder:text-ink-400 transition-colors focus:border-brand-300 focus:bg-surface"
+            className="h-11 w-full rounded-lg lg:h-9 border border-line bg-surface-2 pl-8.5 pr-3 text-sm text-ink-800 placeholder:text-ink-400 transition-colors focus:border-brand-300 focus:bg-surface"
           />
         </label>
       </div>
@@ -116,11 +132,11 @@ export function DatasetPreview({
       ) : (
         <>
           {/* Touch: one card per row, so a wide file never scrolls sideways. */}
-          <div className="max-h-[32rem] overflow-y-auto scrollbar-slim lg:hidden">
+          <div ref={listTopRef} className="scroll-mt-20 lg:hidden">
             <DatasetCards
               headers={headers}
               rows={visible}
-              startIndex={safePage * PAGE_SIZE}
+              startIndex={safePage * pageSize}
             />
           </div>
 
@@ -148,11 +164,11 @@ export function DatasetPreview({
               <tbody>
                 {visible.map((row, rowIndex) => (
                   <tr
-                    key={safePage * PAGE_SIZE + rowIndex}
+                    key={safePage * pageSize + rowIndex}
                     className="border-b border-line/70 transition-colors last:border-0 hover:bg-surface-2/60"
                   >
                     <td className="px-4 py-2.5 text-xs tabular-nums text-ink-300">
-                      {safePage * PAGE_SIZE + rowIndex + 1}
+                      {safePage * pageSize + rowIndex + 1}
                     </td>
                     {headers.map((_, columnIndex) => (
                       <td
@@ -171,19 +187,19 @@ export function DatasetPreview({
             </table>
           </div>
 
-          <div className="flex flex-wrap items-center justify-between gap-3 border-t border-line px-5 py-3 sm:px-6">
-            <p className="text-xs text-ink-400">
-              Showing {formatCount(safePage * PAGE_SIZE + 1)} to{" "}
-              {formatCount(safePage * PAGE_SIZE + visible.length)} of{" "}
+          <div className="flex flex-col gap-2 border-t border-line px-4 py-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-3 sm:px-6">
+            <p className="text-center text-xs text-ink-400 sm:text-left">
+              Showing {formatCount(safePage * pageSize + 1)} to{" "}
+              {formatCount(safePage * pageSize + visible.length)} of{" "}
               {formatCount(filtered.length)}
               {query ? " matching" : ""} {pluralize(filtered.length, "row")}
             </p>
 
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center justify-between gap-1.5 sm:justify-start">
               <Button
                 size="sm"
                 variant="ghost"
-                onClick={() => setPage((current) => Math.max(current - 1, 0))}
+                onClick={() => goToPage(Math.max(safePage - 1, 0))}
                 disabled={safePage === 0}
                 leadingIcon={<ChevronLeft className="size-3.5" aria-hidden />}
               >
@@ -195,7 +211,7 @@ export function DatasetPreview({
               <Button
                 size="sm"
                 variant="ghost"
-                onClick={() => setPage((current) => Math.min(current + 1, pageCount - 1))}
+                onClick={() => goToPage(Math.min(safePage + 1, pageCount - 1))}
                 disabled={safePage >= pageCount - 1}
                 trailingIcon={<ChevronRight className="size-3.5" aria-hidden />}
               >

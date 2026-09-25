@@ -42,7 +42,7 @@ function MappingCard({ mapping }: { mapping: SchemaMapping }) {
   return (
     <li className={cn("px-4 py-3.5", !resolved && "bg-warn-50/40")}>
       <div className="space-y-1.5">
-        <p className="font-mono text-[0.8125rem] text-ink-500">
+        <p className="font-mono text-[0.8125rem] break-all text-ink-500">
           {mapping.source_header}
         </p>
 
@@ -103,7 +103,7 @@ function MappingCard({ mapping }: { mapping: SchemaMapping }) {
             <span className="mt-2.5 block rounded-lg bg-surface-2 p-3">
               {presentation.description}
               {mapping.normalized_source_header !== mapping.source_header ? (
-                <span className="mt-1.5 block font-mono text-[0.6875rem] text-ink-400">
+                <span className="mt-1.5 block font-mono text-xs break-all text-ink-400">
                   read as: {mapping.normalized_source_header}
                 </span>
               ) : null}
