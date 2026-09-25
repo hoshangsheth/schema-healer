@@ -1,10 +1,13 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, useSyncExternalStore, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
 
 import { cn } from "@/lib/cn";
 import { EASE_OUT } from "@/lib/motion";
+
+const subscribeNever = () => () => {};
 
 /**
  * Action bar pinned to the bottom of the viewport on touch screens.
@@ -27,10 +30,12 @@ export function StickyBar({
   hideNearId?: string;
 }) {
   const [visible, setVisible] = useState(revealAfterViewports === 0);
+  const hydrated = useSyncExternalStore(subscribeNever, () => true, () => false);
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    const past = latest > window.innerHeight * revealAfterViewports;
+    const past =
+      revealAfterViewports === 0 || latest > window.innerHeight * revealAfterViewports;
 
     let blocked = false;
     if (hideNearId) {
@@ -51,7 +56,11 @@ export function StickyBar({
     return () => document.body.classList.remove("has-sticky-bar");
   }, [visible]);
 
-  return (
+  if (!hydrated) return null;
+
+  // Portalled to the body: an ancestor with a transform or filter (such as a
+  // page transition) would otherwise pin the bar to itself, not the viewport.
+  return createPortal(
     <AnimatePresence>
       {visible ? (
         <motion.div
@@ -68,6 +77,7 @@ export function StickyBar({
           {children}
         </motion.div>
       ) : null}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   );
 }

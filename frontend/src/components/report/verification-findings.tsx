@@ -71,7 +71,7 @@ export function VerificationFindings({
                       <span
                         key={column}
                         className={cn(
-                          "rounded-md px-2 py-1 font-mono text-[0.6875rem]",
+                          "max-w-full rounded-md px-2 py-1 font-mono text-xs break-all lg:text-[0.6875rem]",
                           finding.severity === VerificationSeverity.ERROR
                             ? "bg-danger-50 text-danger-700"
                             : "bg-surface-2 text-ink-600",

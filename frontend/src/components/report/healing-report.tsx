@@ -183,7 +183,7 @@ function ManualReviewList({ headers }: { headers: string[] }) {
         {headers.map((header) => (
           <span
             key={header}
-            className="rounded-md bg-warn-100 px-2 py-1 font-mono text-[0.6875rem] text-warn-700"
+            className="max-w-full rounded-md bg-warn-100 px-2 py-1 font-mono text-xs break-all text-warn-700 lg:text-[0.6875rem]"
           >
             {header}
           </span>

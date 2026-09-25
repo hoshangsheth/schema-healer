@@ -1,7 +1,7 @@
 "use client";
 
 import type { ElementType, ReactNode } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 
 import { cn } from "@/lib/cn";
 import { staggerDelay, transitionBase, viewportOnce } from "@/lib/motion";
@@ -19,7 +19,8 @@ export interface RevealProps {
 
 /**
  * Scroll triggered entry animation used across the marketing page. It collapses
- * to a plain fade, and then to nothing, when the user prefers reduced motion.
+ * to a plain fade under reduced motion via the app wide `MotionConfig`; deciding
+ * that here instead would mismatch the server render during hydration.
  */
 export function Reveal({
   children,
@@ -29,12 +30,11 @@ export function Reveal({
   as = "div",
   distance = 18,
 }: RevealProps) {
-  const reduceMotion = useReducedMotion();
   const MotionTag = motion[as as keyof typeof motion] as typeof motion.div;
 
   return (
     <MotionTag
-      initial={{ opacity: 0, y: reduceMotion ? 0 : distance }}
+      initial={{ opacity: 0, y: distance }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={viewportOnce}
       transition={{ ...transitionBase, delay: staggerDelay(index, 0.07, delay) }}

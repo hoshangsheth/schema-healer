@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
 import { EASE_OUT } from "@/lib/motion";
-import { truncate } from "@/utils/format";
 
 /** Fields shown before a record needs expanding. */
 const COLLAPSED_FIELDS = 4;
@@ -55,7 +54,7 @@ function RecordCard({
 
   return (
     <li className="px-4 py-3.5">
-      <p className="mb-2 text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-ink-300">
+      <p className="mb-2 text-xs font-semibold uppercase tracking-[0.08em] text-ink-300">
         Row {position}
       </p>
 
@@ -70,7 +69,7 @@ function RecordCard({
           type="button"
           onClick={() => setExpanded((current) => !current)}
           aria-expanded={expanded}
-          className="mt-2 inline-flex min-h-9 items-center gap-1.5 text-xs font-medium text-brand-600"
+          className="mt-1 inline-flex min-h-11 items-center gap-1.5 text-xs font-medium text-brand-600"
         >
           {expanded
             ? "Show fewer fields"
@@ -90,11 +89,11 @@ function RecordCard({
 function FieldRow({ label, value }: { label: string; value: string | undefined }) {
   return (
     <div className="flex items-start justify-between gap-3">
-      <dt className="min-w-0 shrink-0 basis-2/5 truncate font-mono text-[0.6875rem] text-ink-400">
+      <dt className="min-w-0 shrink-0 basis-2/5 font-mono text-xs break-all text-ink-400">
         {label}
       </dt>
       <dd className="min-w-0 flex-1 text-right text-[0.8125rem] break-words text-ink-700">
-        {value ? truncate(value, 48) : <span className="text-ink-300">-</span>}
+        {value ? value : <span className="text-ink-300">-</span>}
       </dd>
     </div>
   );

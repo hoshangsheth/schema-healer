@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, CheckCircle2, FileWarning, ShieldCheck, Sparkles } from "lucide-react";
 
@@ -38,9 +38,15 @@ const COLUMNS: PreviewColumn[] = [
 
 const BEAT_MS = 2600;
 
+const subscribeNever = () => () => {};
+
 export function DriftPreview() {
   const reduceMotion = useReducedMotion();
-  const [beat, setBeat] = useState(reduceMotion ? 2 : 0);
+  const [cycleBeat, setBeat] = useState(0);
+  // The server cannot know the motion preference, so the final beat is only
+  // pinned after hydration; pinning it earlier mismatches with Reduce Motion on.
+  const hydrated = useSyncExternalStore(subscribeNever, () => true, () => false);
+  const beat = hydrated && reduceMotion ? 2 : cycleBeat;
 
   useEffect(() => {
     if (reduceMotion) return;
@@ -111,11 +117,11 @@ export function DriftPreview() {
             return (
               <li
                 key={column.source}
-                className="grid grid-cols-[1fr_auto_1fr] items-center gap-3 px-5 py-3.5"
+                className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-2.5 gap-y-1 px-5 py-3 sm:grid-cols-[1fr_auto_1fr] sm:gap-3 sm:py-3.5"
               >
                 <span
                   className={cn(
-                    "truncate font-mono text-[0.8125rem] transition-colors duration-300",
+                    "col-span-2 min-w-0 font-mono text-[0.8125rem] break-all transition-colors duration-300 sm:col-span-1 sm:truncate",
                     isResolved ? "text-ink-400 line-through" : "text-danger-600",
                   )}
                 >
@@ -133,7 +139,7 @@ export function DriftPreview() {
                   <ArrowRight className="size-3.5" aria-hidden />
                 </motion.span>
 
-                <span className="flex min-w-0 items-center justify-end gap-2">
+                <span className="flex min-w-0 items-center justify-start gap-2 sm:justify-end">
                   <AnimatePresence mode="wait">
                     {isResolved ? (
                       <motion.span
@@ -144,7 +150,7 @@ export function DriftPreview() {
                         transition={{ ...springSoft, delay: index * 0.08 }}
                         className="flex min-w-0 items-center gap-2"
                       >
-                        <span className="truncate font-mono text-[0.8125rem] font-medium text-ink-900">
+                        <span className="min-w-0 font-mono text-[0.8125rem] font-medium break-all text-ink-900 sm:truncate">
                           {column.canonical}
                         </span>
                         <span

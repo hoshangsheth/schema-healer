@@ -174,15 +174,15 @@ export function InteractiveDemo() {
                         key={row.source}
                         className="flex min-w-0 flex-col gap-1.5 px-5 py-3 sm:flex-row sm:items-center sm:gap-4 sm:px-6"
                       >
-                        <div className="flex min-w-0 flex-1 items-center gap-2.5 sm:gap-3">
-                          <span className="truncate font-mono text-[0.8125rem] text-ink-500">
+                        <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-2.5 gap-y-1 sm:flex-nowrap sm:gap-3">
+                          <span className="min-w-0 font-mono text-[0.8125rem] break-all text-ink-500 sm:truncate">
                             {row.source}
                           </span>
                           <ArrowRight
                             className="size-3.5 shrink-0 text-ink-300"
                             aria-hidden
                           />
-                          <span className="truncate font-mono text-[0.8125rem] font-medium text-ink-900">
+                          <span className="min-w-0 font-mono text-[0.8125rem] font-medium break-all text-ink-900 sm:truncate">
                             {row.canonical}
                           </span>
                         </div>

@@ -79,7 +79,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
         role="region"
         aria-label="Notifications"
         aria-live="polite"
-        className="pointer-events-none fixed inset-x-0 bottom-0 z-100 flex flex-col items-center gap-2 p-4 sm:inset-x-auto sm:right-6 sm:bottom-6 sm:items-end sm:p-0"
+        className="pointer-events-none fixed inset-x-0 top-0 z-100 flex overflow-x-clip sm:overflow-x-visible flex-col items-center gap-2 p-3 pt-[calc(0.75rem+env(safe-area-inset-top))] sm:inset-x-auto sm:top-auto sm:right-6 sm:bottom-6 sm:items-end sm:p-0"
       >
         <AnimatePresence initial={false}>
           {toasts.map((toast) => (
@@ -109,7 +109,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                 type="button"
                 onClick={() => dismiss(toast.id)}
                 aria-label="Dismiss notification"
-                className="rounded-md p-1 text-ink-400 transition-colors hover:bg-surface-2 hover:text-ink-700"
+                className="-m-2 flex size-10 shrink-0 items-center justify-center rounded-md text-ink-400 sm:m-0 sm:size-auto sm:p-1 transition-colors hover:bg-surface-2 hover:text-ink-700"
               >
                 <X className="size-4" aria-hidden />
               </button>
